@@ -174,7 +174,7 @@ foreach ($sth as $row )
 <div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Fecha inicio</label>
-<input type="text" class="form-control form-control-sm" name="fecha_inicial" id="fecha_inicial"><br>
+<input type="text" class="form-control form-control-sm" name="fecha_inicial" id="fecha_inicial" onchange="searchFilter_solicitudes();"><br>
 
 </div>
 </div>
