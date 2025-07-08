@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /academia/
+
+# Si no existe archivo o carpeta, redirige todo a router.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ router.php?url=$1 [QSA,L]
