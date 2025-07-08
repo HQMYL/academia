@@ -200,7 +200,7 @@ foreach ($sth as $row )
 
 <!-- ESPACIO PARA TABLA ORIGINAL-->
 <?php
-$baseURL = 'GetSolicitudesAdmin.php';
+$baseURL = 'GetSolicitudes.php';
 $limit = 5;
 
 // Count of all records
