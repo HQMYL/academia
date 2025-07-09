@@ -250,8 +250,6 @@ $(".actualizar_usuario").on("click",function()
   $('#cmbestado option[value="'+estado+'"]').attr("selected", true);
   $("#img").attr("src","assets/dashboard/dist/img/users/"+img);
   $("#imagen_actual").val(img);
-  
-
   $("#myModalActualizarUsuario").modal({show:true});
   
 });
@@ -1147,6 +1145,7 @@ function searchFilter_solicitudes(page_num) {
     var materia = $('#cmbmat').val();
     var fecha_inicial = $('#fecha_inicial').val();
     var fecha_final = $('#fecha_final').val();
+    console.log(asesor);
     $.ajax({
         type: 'POST',
         url: BASE_URL + 'GetSolicitudes',
@@ -1262,8 +1261,10 @@ $(".actualizar_solicitud").on("click",function()
   //console.log(id_asesor);
   var id_estudiante = $(this).attr("data-id_estudiante");
   var archivos = $(this).attr("data-archivos");
+  $(".add_archivo").attr("archivo",id);
    archivos = archivos.split(',');
   $("#id_solicitud").val(id);
+  $("#id_archivo_solicitud").val(id);
   $("#titulo").val(titulo);
   $('#cmbnivel option[value="'+nivel_educativo+'"]').attr("selected", true);
   $('#cmbtipo option[value="'+tipo_trabajo_id+'"]').attr("selected", true);
@@ -1287,6 +1288,15 @@ $(".actualizar_solicitud").on("click",function()
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   $("#myModalActualizarArchivo").modal({show:true});
+
+ });
+
+  $(".add_archivo").on("click",function()
+ {
+    //$("#myModalActualizarSolicitud").modal('toggle');
+    //$('body').removeClass('modal-open');
+    //$('.modal-backdrop').remove();
+  $("#myModalAgregarArchivo").modal({show:true});
 
  });
   

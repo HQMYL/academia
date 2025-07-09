@@ -1098,28 +1098,12 @@ foreach ($sth as $row )
 <label>Descripción</label>
 <textarea class="form-control form-control-sm" name="descripcion" id="descripcion_solicitud" cols="8">
   Descripción
-</textarea>
+</textarea><br>
 <input type="hidden" class="form-control form-control-sm" name="id_estudiante" id="id_estudiante">
 <input type="hidden" class="form-control form-control-sm" name="id_solicitud" id="id_solicitud">
 </div>
 
-<div class="col-md-12">
-<label>Documentos</label>
-<div class="table-responsive">
-  <table class="table table-hover table-bordered">
-    <thead>
-      <tr>
-        <th>Título</th>
-        <th>Tipo de trabajo</th>
-      </tr>
-    </thead>
-    <tbody id="relleno">
-      
-    </tbody>
-  </table>
-</div>
-         
-</div>
+
 
 </div> <!--FINAL ROW-->
 <div class="row">
@@ -1136,7 +1120,25 @@ foreach ($sth as $row )
 </div>
 <div class="statusMsgactualizarsolicitud"></div>
 </form>
-
+<div class="col-md-12">
+  <br>
+<h3>Documentos</h3>
+<button type="button" class="btn btn-success add_archivo">Agregar archivo</button>
+<div class="table-responsive">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Tipo de trabajo</th>
+      </tr>
+    </thead>
+    <tbody id="relleno">
+      
+    </tbody>
+  </table>
+</div>
+         
+</div>
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -1150,7 +1152,56 @@ foreach ($sth as $row )
 </div>
 </div>
 <!-- Modal 2 -->
+<!-- Modal 1 -->
+<div class="modal fade" id="myModalAgregarArchivo" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #337AFF;">
+        <p class="modal-title" style="color: #fff;">Agregar archivo</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="fupFormAgregarArchivo">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Archivo</label>
+              <input type="file" class="form-control form-control-sm" name="archivo">
+              
+              <input type="text" class="form-control form-control-sm" name="id" id="id_archivo_solicitud">
+            </div>
+
+
+          </div> <!--FINAL ROW-->
+          <div class="row">
+
+            <!-- /.col -->
+            <div class="col-4">
+              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregararchivo" value="Guardar" />
+              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
+
+
+            </div>
+
+            <!-- /.col -->
+          </div>
+          <div class="statusMsgagregararchivo"></div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
+        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal 2 -->
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalActualizarArchivo" role="dialog" style="overflow-y: scroll;">
   <div class="modal-dialog modal-lg">
