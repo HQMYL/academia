@@ -14,6 +14,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/jquery-ui/jquery-ui.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style-dasboard.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/root.css">
   
 </head>
 
@@ -26,12 +28,7 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?= BASE_URL ?>admin" class="nav-link">Inicio</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link"></a>
-      </li>
+      
     </ul>
 
     <!-- Right navbar links -->
@@ -151,7 +148,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <!-- <i class="far fa-bell"></i> -->
-          Bienvenido: <?= $usuario; ?>
+          Bienvenidooo: <?= $usuario; ?>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- <span class="dropdown-item dropdown-header">15 Notifications</span> -->

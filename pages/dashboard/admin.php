@@ -20,7 +20,7 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
       
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper admin">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">

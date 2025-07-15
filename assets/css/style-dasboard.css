@@ -1,0 +1,22 @@
+*{
+    font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+aside.main-sidebar{
+    background: linear-gradient(45deg, #2563eb, #1340a3);
+}
+.content-wrapper
+ {
+    background-color: #ffffff;
+}
+.btn-info{
+background-color: #2563eb;
+}
+.btn-info:hover{
+    background-color: #1746ad;
+}
+.d-filter
+ {
+    display: flex;
+    align-items: center;
+}

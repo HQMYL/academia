@@ -77,15 +77,17 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="inputPassword4">Filtrar</label>
-                  <input type="text" class="form-control form-control-sm" name="keywords" id="keywords" onkeyup="searchFilter_curso();"><br>
-                  <input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_curso();">
-                  <a href="<?= BASE_URL ?>listado-cursos" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+                  <div class="d-filter">
+                    <input type="text" class="form-control form-control-sm" name="keywords" id="keywords" onkeyup="searchFilter_curso();"><br>
+                    <a value="Buscar" type="button" onclick="searchFilter_curso();"><i class="fas fa-search" ></i></a>
+                    <a href="<?= BASE_URL ?>listado-cursos"><i class="fa fa-fw fa-sync"></i></a>
+                  </div>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="inputPassword4">Filtrar por profesor asignado</label>
+                  <label for="inputPassword4">Fiiiiltrar por profesor asignado</label>
                   <select class="form-control form-control-sm" name="cmbusuario" id="cmbusuario" onchange="searchFilter_curso();">
                     <option value="">Seleccione...</option>
                     <?php
@@ -171,8 +173,8 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
                           <td><?= $row["duracion"]; ?></td>
                           <td><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></td>
 
-                          <td><button type="button" class="btn btn-info actualizar_curso" data-id="<?= $row['id_curso']; ?>" data-nombre="<?= $row['nombre_curso']; ?>" data-descripcion="<?= $row['descripcion_curso']; ?>" data-duracion="<?= $row['duracion']; ?>" data-asignado="<?= $row['profesor_asignado']; ?>">Editar</button></td>
-                          <td><button type="button" class="btn btn-danger delete_curso" data-id="<?= $row['id_curso']; ?>">Eliminar</button></td>
+                          <td><button type="button" class="btn btn-info actualizar_curso" data-id="<?= $row['id_curso']; ?>" data-nombre="<?= $row['nombre_curso']; ?>" data-descripcion="<?= $row['descripcion_curso']; ?>" data-duracion="<?= $row['duracion']; ?>" data-asignado="<?= $row['profesor_asignado']; ?>"><i class="fas fa-edit"></i></button></td>
+                          <td><button type="button" class="btn btn-danger delete_curso" data-id="<?= $row['id_curso']; ?>"><i class="fas fa-trash"></i> </button></td>
                         </tr>
                     <?php
                       }
@@ -218,4 +220,3 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
 <!-- guardar-curso -->
 
 <!-- ACtualizar -->
-
