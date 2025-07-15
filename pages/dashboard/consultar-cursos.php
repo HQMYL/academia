@@ -2,47 +2,20 @@
 session_start();
 require_once __DIR__ . '../../../init.php'; // Carga rutas y configuración
 require_once ROOT_PATH . 'config/conexion.php';
+require_once ROOT_PATH . 'config/conexiones.php';    
 require_once ROOT_PATH .  'config/dbConfig.php';
 require_once ROOT_PATH .  'models/Pagination.class.php';
 $usuario = "";
 
-if (isset($_SESSION["usuario"])) {
+if (isset($_SESSION["usuario"])) 
+{
   $usuario = $_SESSION["usuario"];
-} else {
+} 
+else 
+{
   header('Location: ./');
 }
 
-
-$rol = "";
-$usuario_id = "";
-$foto_perfil = "";
-$sth = $con->prepare("SELECT * FROM users WHERE usuario = ?");
-$sth->bindParam(1, $usuario);
-$sth->execute();
-
-if ($sth->rowCount() > 0) {
-
-  foreach ($sth as $row) {
-
-    $rol = $row["id_tipo"];
-    $usuario_id = $row["id_usuario"];
-    $foto_perfil = $row["img"];
-  }
-}
-
-$logo = "";
-$sth = $con->prepare("SELECT * FROM logotipo");
-$sth->execute();
-
-if ($sth->rowCount() > 0) {
-
-  foreach ($sth as $row) {
-    $logo = $row["img"];
-  }
-}
-
-$anno = "";
-$anno = date("Y");
 require_once ROOT_PATH . 'include/dashboard/header.php';
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -55,7 +28,10 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
 
         </div><!-- /.col -->
         <div class="col-sm-6">
-
+         <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?= BASE_URL ?>admin">Inicio</a></li>
+              <li class="breadcrumb-item active">Consultar cursos</li>
+            </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->

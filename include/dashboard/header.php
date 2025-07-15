@@ -14,6 +14,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/jquery-ui/jquery-ui.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/dist/css//nueva.css">
   
 </head>
 
@@ -57,22 +58,37 @@
           </form>
         </div>
       </li>
-
-      <!-- Messages Dropdown Menu -->
+     
+     <?php 
+      if ($activos > 0) 
+        { ?>
+        <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
+          <span class="badge badge-danger navbar-badge"><?= $total_mensajes; ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
+          <?php 
+            
+$sth = $con->prepare("SELECT * FROM mensajes a LEFT JOIN users b ON a.emisor_id = b.id_usuario WHERE a.receptor_id = ?");
+$sth->bindParam(1, $usuario_id);
+$sth->execute();
+
+if ($sth->rowCount() > 0) 
+{
+
+foreach ($sth as $row ) 
+{ ?>
+          <a href="<?= BASE_URL ?>sala-chat" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <!--<i class="fas fa-solid fa-trash img-size-50 img-circle mr-3"></i>-->
+              
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                  <?= $row["nombre"]; ?> <?= $row["apellidos"]; ?>
+                  <span class="float-right text-sm text-danger"><i class="fas fa-solid fa-trash"></i></span>
                 </h3>
                 <p class="text-sm">Call me whenever you can...</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
@@ -80,69 +96,66 @@
             </div>
             <!-- Message End -->
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
+          <?php }
+          } 
+          ?>
+          
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
+      <?php }
+     ?>
+      
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge"><?= $total; ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header"><?= $total; ?> Notificaciones</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+          <?php 
+            
+$sth = $con->prepare("SELECT * FROM notificaciones a LEFT JOIN solicitudes b ON a.solicitud_id = b.id_solicitud WHERE a.usuario_id = ?");
+$sth->bindParam(1, $usuario_id);
+$sth->execute();
+
+if ($sth->rowCount() > 0) 
+{
+
+foreach ($sth as $row ) 
+{ ?>
+
+<a href="<?= BASE_URL ?>cotizaciones" class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media">
+              
+              <div class="media-body">
+                <h3 class="dropdown-item-title <?php $resultado = ($row["leido"] == "No") ? "negrita" : ""; ?><?= $resultado; ?>">
+                  Tienes novedades en tu cotización
+                  <span class="float-right text-sm text-muted"><i class="fas fa-solid fa-trash"></i></span>
+                </h3>
+                <p class="text-center <?php $resultado = ($row["leido"] == "No") ? "negrita" : ""; ?> <?= $resultado; ?>"><?= $row["titulo"]; ?></p>
+                
+              </div>
+            </div>
+            <!-- Message End -->
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
+<!--<a href="#" class="dropdown-item">
+<i class="fas fa-envelope mr-2"></i> Tienes novedades en tu cotización sobre la solicitud <?= $row["titulo"]; ?>
+
+</a>
+<div class="dropdown-divider"></div>-->
+<?php }
+}
+
+?>
+<div class="dropdown-divider"></div>
+
+</div>
+</li>
       <!-- <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -151,7 +164,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <!-- <i class="far fa-bell"></i> -->
-          Bienvenido: <?= $usuario; ?>
+          Bienvenido
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- <span class="dropdown-item dropdown-header">15 Notifications</span> -->

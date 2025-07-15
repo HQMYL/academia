@@ -44,9 +44,9 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
 <div class="card-body"><!-- INICIO CARD BODY -->
 
 <?php 
-if ($rol == "1") 
+if ($rol == "1" OR $rol == "2") 
 { ?>
-<button type="button" class="btn btn-info agregar_solicitud"><i class="fa fa-solid fa-plus"></i> Agregar solicitud</button>
+<!--<button type="button" class="btn btn-info agregar_solicitud"><i class="fa fa-solid fa-plus"></i> Agregar solicitud</button>-->
 <label for="inputEmail4"></label>
 <div class="row align-items-stretch mb-5">
 <div class="col-md-4">
@@ -235,6 +235,7 @@ if($query->num_rows > 0){?>
 <th>Tipo trabajo</th>
 <th>Materia relacionada</th>
 <th>Fecha límite</th>
+<th>Asignar/aceptar</th>
 <th>Editar</th>
 <th>Eliminar</th>
 
@@ -251,7 +252,18 @@ while($row = $query->fetch_assoc()){
 <td><?= $row["tipo_trabajo"]; ?></td>
 <td><?= $row["materia"]; ?></td>
 <td><?= $row["fecha_limite"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Editar</button></td>
+<?php 
+if (empty($row["id_asesor"])) 
+{ ?>
+  <td><button type="button" class="btn btn-warning">Sin asignar</button></td>
+<?php }
+
+if (!empty($row["id_asesor"])) 
+{ ?>
+  <td><button type="button" class="btn btn-success">Asignado</button></td>
+<?php }
+?>
+<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Detalles</button></td>
 <td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
 
 </tr>
@@ -278,19 +290,18 @@ if ($rol == "3")
 <button type="button" class="btn btn-info agregar_solicitud"><i class="fa fa-solid fa-plus"></i> Agregar solicitud</button>
 <label for="inputEmail4"></label>
 <div class="row align-items-stretch mb-5">
-<div class="col-md-6">
+<div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Filtrar</label>
-<input type="text" class="form-control form-control-sm" name="keywords" id="keywords" onkeyup="searchFilter();"><br>
-<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter();">
-<a href="<?= $_SERVER['PHP_SELF'];?>" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+<input type="text" class="form-control form-control-sm" name="keywords" id="keywords_estudiante" onkeyup="searchFilter_solicitudes_estudiante();"><br>
+
 </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Filtrar por asesor</label>
-<select class="form-control form-control-sm" name="cmbasesor" id="cmbasesor" onchange="searchFilter();">
+<select class="form-control form-control-sm" name="cmbasesor" id="cmbasesor" onchange="searchFilter_solicitudes_estudiante();">
                   <option value="">Seleccione...</option>
                   <?php
                   $asesor = "";
@@ -310,15 +321,126 @@ foreach ($sth as $row )
 
 }
 ?>
-              </select>
-<input type="text" class="form-control form-control-sm" name="id_usuario" id="user_id" value="<?= $usuario_id; ?>">
+</select>
+
 </div>
 
+</div>
+
+<div class="col-md-4">
+<div class="form-group">
+<label for="inputPassword4">Filtrar por tipo de trabajo</label>
+<select class="form-control form-control-sm" name="cmbtrabajo" id="cmbtrabajo_estudiante" onchange="searchFilter_solicitudes_estudiante();">
+                  <option value="">Seleccione...</option>
+                  <?php
+                  
+$sth = $con->prepare("SELECT * FROM tipos_trabajo ");
+#$sth->bindParam(1, $asesor);
+$sth->execute();
+
+if ($sth->rowCount() > 0) {
+
+foreach ($sth as $row ) 
+  { ?>
+
+   <option value="<?= $row["id_tipo_trabajo"]; ?>"><?= $row["tipo_trabajo"]; ?></option>
+   
+<?php }
+
+}
+?>
+</select>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+<div class="form-group">
+<label for="inputPassword4">Filtrar por nivel educativo</label>
+<select class="form-control form-control-sm" name="cmbnivel" id="cmbeducativo_estudiante" onchange="searchFilter_solicitudes_estudiante();">
+                  <option value="">Seleccione...</option>
+                  <?php
+                  
+$sth = $con->prepare("SELECT * FROM niveles_educativos");
+#$sth->bindParam(1, $asesor);
+$sth->execute();
+
+if ($sth->rowCount() > 0) {
+
+foreach ($sth as $row ) 
+  { ?>
+
+   <option value="<?= $row["id_nivel"]; ?>"><?= $row["nivel_educativo"]; ?></option>
+   
+<?php }
+
+}
+?>
+</select>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+<div class="form-group">
+<label for="inputPassword4">Filtrar por materia relacionada</label>
+<select class="form-control form-control-sm" name="cmbmat" id="cmbmat_estudiante" onchange="searchFilter_solicitudes_estudiante();">
+                  <option value="">Seleccione...</option>
+                  <?php
+                  
+$sth = $con->prepare("SELECT * FROM materias ");
+#$sth->bindParam(1, $asesor);
+$sth->execute();
+
+if ($sth->rowCount() > 0) {
+
+foreach ($sth as $row ) 
+  { ?>
+
+   <option value="<?= $row["id_materia"]; ?>"><?= $row["materia"]; ?></option>
+   
+<?php }
+
+}
+?>
+</select>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+<div class="form-group">
+<label for="inputPassword4">Fecha inicio</label>
+<input type="text" class="form-control form-control-sm" name="fecha_inicial" id="fecha_inicial_estudiante" onchange="searchFilter_solicitudes_estudiante();">
+<br>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="form-group">
+<label for="inputPassword4">Fecha fin</label>
+<input type="text" class="form-control form-control-sm" name="fecha_final" id="fecha_final_estudiante" onchange="searchFilter_solicitudes_estudiante();">
+<input type="hidden" class="form-control form-control-sm" name="id_usuario" id="user_id" value="<?= $usuario_id; ?>">
+<br>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_solicitudes_estudiante();">
+<a href="<?= BASE_URL ?>solicitudes" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
 </div>
 </div>
 <!-- ESPACIO PARA FILTROS -->
 
 <div class="datalist-wrapper">
+  
 <!-- Loading overlay -->
 <div class="loading-overlay" style="display: none;"><div class="overlay-content">Cargando...</div></div>
 
@@ -331,8 +453,8 @@ $limit = 5;
 
 // Count of all records
 #$mar = "208";
-$whereSQL = "WHERE  = a.id_estudiante = '".$usuario_id."' ";
-$query   = $db->query("SELECT  COUNT(*) as rowNum FROM solicitudes ");
+$whereSQL = "WHERE a.id_estudiante = '".$usuario_id."'";
+$query   = $db->query("SELECT  COUNT(*) as rowNum FROM solicitudes a LEFT JOIN tipos_trabajo c ON a.tipo_trabajo_id = c.id_tipo_trabajo LEFT JOIN materias d ON a.materia_relacionada = d.id_materia ".$whereSQL);
 $result  = $query->fetch_assoc();
 $rowCount= $result['rowNum'];
 
@@ -341,17 +463,17 @@ $pagConfig = array(
 'baseURL' => $baseURL,
 'totalRows' => $rowCount,
 'perPage' => $limit,
-'contentDiv' => 'dataContainer',
-'link_func' => 'searchFilter'
+'contentDiv' => 'dataContainerestudiante',
+'link_func' => 'searchFilter_solicitudes_estudiante'
 );
 $pagination =  new Pagination($pagConfig);
 
 // Fetch records based on the limit
-$query = $db->query("SELECT * FROM solicitudes a LEFT JOIN niveles_educativos b ON a.id_estudiante = b.id_nivel LEFT JOIN tipos_trabajo c ON a.tipo_trabajo_id = c.id_tipo_trabajo LEFT JOIN materias d ON a.materia_relacionada = d.id_materia LEFT JOIN users e ON a.id_estudiante = e.id_usuario  ORDER BY a.id_solicitud ASC LIMIT $limit");
+$query = $db->query("SELECT * FROM solicitudes a LEFT JOIN tipos_trabajo c ON a.tipo_trabajo_id = c.id_tipo_trabajo LEFT JOIN materias d ON a.materia_relacionada = d.id_materia $whereSQL ORDER BY a.id_solicitud ASC LIMIT $limit");
 
 
 if($query->num_rows > 0){?>
-<div class="table-responsive" id="dataContainer">
+<div class="table-responsive" id="dataContainerestudiante">
 <table class="table table-hover table-bordered">
 <thead>
 <tr>
@@ -360,6 +482,7 @@ if($query->num_rows > 0){?>
 <th>Tipo trabajo</th>
 <th>Materia relacionada</th>
 <th>Fecha límite</th>
+<th>Asignado</th>
 <th>Editar</th>
 <th>Eliminar</th>
 
@@ -375,8 +498,19 @@ while($row = $query->fetch_assoc()){
 <td><?= $row["tipo_trabajo"]; ?></td>
 <td><?= $row["materia"]; ?></td>
 <td><?= $row["fecha_limite"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
+<?php 
+if (empty($row["id_asesor"])) 
+{ ?>
+  <td><button type="button" class="btn btn-warning">Sin asignar</button></td>
+<?php }
+
+if (!empty($row["id_asesor"])) 
+{ ?>
+  <td><button type="button" class="btn btn-success">Asignado</button></td>
+<?php }
+?>
+<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Detalles</button></td>
+<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_solicitud'];?>">Eliminar</button></td>
 </tr>
 <?php
 }

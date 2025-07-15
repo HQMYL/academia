@@ -104,8 +104,19 @@
   color: #fff;
 }
 
-.centrado {
-
-   text-align: center;
-   
+.centrado 
+{
+   text-align: center;  
 }
+
+.cot 
+{
+    margin-top: 25px;
+}
+
+#chatBox {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }

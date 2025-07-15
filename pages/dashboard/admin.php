@@ -29,7 +29,10 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
             
           </div><!-- /.col -->
           <div class="col-sm-6">
-            
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+              <li class="breadcrumb-item active"></li>
+            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -42,7 +45,7 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
-             <h1>Bienvenido al panel de control</h1> 
+             <h1>Bienvenido al sistema académico</h1> 
             </div>
             
           </div>

@@ -11,7 +11,7 @@ if (isset($_SESSION["usuario"]))
 }
 
 $fallo = "Hubo un error inténtalo nuevamente";
-$exito = "El archivo ha sido actualizado correctamente";
+$exito = "El archivo ha sido eliminado correctamente";
 $response = array(
   'status' => 0,
   'message' => $fallo
@@ -50,50 +50,13 @@ foreach ($original as  $clave=>$valor)
   if($valor == $archivo_actual) unset($original[$clave]);
 }
 
-
+$original = implode(",", $original);
   # CODIGO PARA ACTUALIZAR
 
-$imgFile = $_FILES['archivo']['name'];
-$tmp_dir = $_FILES['archivo']['tmp_name'];
-$imgSize = $_FILES['archivo']['size'];
-          
-    if($imgFile)
-    {
-      $carpeta = 'assets/dashboard/dist/img/documentos/';
-     if (!file_exists($carpeta)) 
-     {
-    mkdir($carpeta,0777);
-     }
-      $upload_dir = $carpeta; // upload directory 
-      $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
-      $valid_extensions = array('pdf', 'txt', 'docx', 'pptx','zip','rar','xlsx','jpg','jpeg','png','gif','jfif'); // valid extensions
-      $userpic = rand(1000,1000000).".".$imgExt;
-      if(in_array($imgExt, $valid_extensions))
-      {     
-        if($imgSize < 5000000)
-        {
-          #unlink($upload_dir.$edit_row['img']);
-          move_uploaded_file($tmp_dir,$upload_dir.$userpic);
-        }
-        else
-        {
-          $errMSG = "El tamaño del archivo debe ser máximo de 5MG";
-        }
-      }
-      else
-      {
-        $errMSG = "Solo se permiten archivos PDF,TXT,DOCX,PPTX,ZIP,RAR,JPG,JPEG,GIF,PNG,JFIF";    
-      } 
-
-       
-      $userpic = explode(",", $userpic);
-      $final = array();
-      $final = array_merge($original,$userpic);
-      $final = implode(",", $final);
          $stmt = $DB_con->prepare('UPDATE solicitudes 
         
-        SET archivos=:final WHERE id_solicitud=:id');
-          $stmt->bindParam(':final', $final);
+        SET archivos=:original WHERE id_solicitud=:id');
+          $stmt->bindParam(':original', $original);
           $stmt->bindParam(':id', $id);
         
       if($stmt->execute())
@@ -115,9 +78,6 @@ unlink("assets/dashboard/dist/img/documentos/".$archivo_actual);
     $response['status'] = 0;
     $response['message'] = $fallo;
     echo  json_encode($response);
-    }
-
-
     }
 
 

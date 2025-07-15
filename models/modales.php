@@ -1,3 +1,8 @@
+<?php 
+require_once __DIR__ . '/../init.php';  // Carga rutas y configuración
+require_once ROOT_PATH .  'config/conexiones.php';
+
+?>
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarUsuario" role="dialog" style="overflow-y: scroll;">
 <div class="modal-dialog modal-lg">
@@ -14,6 +19,8 @@
 <div class="col-md-4">
 <label>Nombre</label>
 <input type="text" class="form-control form-control-sm" name="nombre" placeholder="Nombre">
+
+<input type="hidden" class="form-control form-control-sm" name="usuario_id" id="usuario_id" value="<?= $usuario_id; ?>">
 </div>
 
 <div class="col-md-4">
@@ -936,7 +943,7 @@ foreach ($sth as $row )
 <div class="field_wrapper">
        <div>
         
-        <input  type="file" class="form-control form-sm" name="archivo[]">
+        <input  type="file" class="form-control form-sm pdf" name="archivo[]">
         <a href="javascript:void(0);" class="agregar_documento" title="Add field">  <img src="assets/dashboard/dist/img/iconos/add-icon.png"/></a>
           </div>
          </div>
@@ -986,12 +993,25 @@ foreach ($sth as $row )
 <div class="modal-body">
 <form id="fupFormActualizarSolicitud">
 <div class="row">
+  <div class="col-md-12">
+    <div class="col-md-6">
+     <?php 
+   if ($rol == "2") 
+    { ?>
+     <button type="button" class="btn btn-success enviar_cotizacion">Enviar cotización</button>
+   <?php }
+  ?> 
+    </div>
+  </div>
+  
 <div class="col-md-4">
 <label>Título</label>
 <input type="text" class="form-control form-control-sm" name="titulo" id="titulo">
 </div>
-
-<div class="col-md-4">
+<?php 
+if ($rol != "3") 
+  { ?>
+  <div class="col-md-4">
 <label>Asesor</label>
 <select class="form-control form-control-sm" name="cmbasesor" id="cmbprof2">
                   <option value="">Seleccione...</option>
@@ -1014,6 +1034,9 @@ foreach ($sth as $row )
 ?>
               </select>
 </div>
+<?php }
+?>
+
 
 <div class="col-md-4">
 <label>Nivel educativo</label>
@@ -1128,8 +1151,9 @@ foreach ($sth as $row )
   <table class="table table-hover table-bordered">
     <thead>
       <tr>
-        <th>Título</th>
-        <th>Tipo de trabajo</th>
+        <th>Archivo</th>
+        <th>Actualizar</th>
+        <th>Eliminar</th>
       </tr>
     </thead>
     <tbody id="relleno">
@@ -1139,6 +1163,7 @@ foreach ($sth as $row )
 </div>
          
 </div>
+
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -1167,9 +1192,9 @@ foreach ($sth as $row )
           <div class="row">
             <div class="col-md-6">
               <label>Archivo</label>
-              <input type="file" class="form-control form-control-sm" name="archivo">
+              <input type="file" class="form-control form-control-sm pdf" name="archivo">
               
-              <input type="text" class="form-control form-control-sm" name="id" id="id_archivo_solicitud">
+              <input type="hidden" class="form-control form-control-sm" name="id" id="id_archivo_solicitud"><br>
             </div>
 
 
@@ -1204,7 +1229,7 @@ foreach ($sth as $row )
 <!-- Modal 2 -->
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalActualizarArchivo" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -1215,45 +1240,11 @@ foreach ($sth as $row )
       <div class="modal-body">
         <form id="fupFormActualizarArchivo">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Archivo</label>
-              <input type="file" class="form-control form-control-sm" name="archivo" id="archivo_solicitud">
-              <input type="text" class="form-control form-control-sm" name="archivo_actual" id="archivo_actual_solicitud">
-              <input type="text" class="form-control form-control-sm" name="id" id="id_sol">
-            </div>
-
-            <div class="col-md-4">
-              <label>Descripción</label>
-              <textarea class="form-control form-control-sm" name="descripcion" cols="5"></textarea>
-
-            </div>
-
-            <div class="col-md-4">
-              <label>Duración</label>
-              <input type="text" class="form-control form-control-sm" name="duracion" placeholder="Duración">
-            </div>
-
-            <div class="col-md-4">
-              <label>Profesor asignado</label>
-              <select class="form-control form-control-sm" name="cmbusuario">
-                <option value="">Seleccione...</option>
-                <?php
-                $asesor = "";
-                $asesor = "2";
-                $sth = $con->prepare("SELECT * FROM users WHERE id_tipo = ? ");
-                $sth->bindParam(1, $asesor);
-                $sth->execute();
-
-                if ($sth->rowCount() > 0) {
-
-                  foreach ($sth as $row) { ?>
-
-                    <option value="<?= $row["id_usuario"]; ?>"><?= $row["nombre"]; ?></option>
-
-                <?php }
-                }
-                ?>
-              </select><br>
+              <input type="file" class="form-control form-control-sm pdf" name="archivo"><br>
+              <input type="hidden" class="form-control form-control-sm" name="archivo_actual" id="archivo_actual_solicitud">
+              <input type="hidden" class="form-control form-control-sm" name="id" id="id_sol">
             </div>
 
           </div> <!--FINAL ROW-->
@@ -1261,7 +1252,7 @@ foreach ($sth as $row )
 
             <!-- /.col -->
             <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarcurso" value="Guardar" />
+              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizararchivo" value="Guardar" />
               <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
 
 
@@ -1269,7 +1260,7 @@ foreach ($sth as $row )
 
             <!-- /.col -->
           </div>
-          <div class="statusMsgagregarcurso"></div>
+          <div class="statusMsgactualizararchivo"></div>
         </form>
 
       </div>
@@ -1285,4 +1276,226 @@ foreach ($sth as $row )
   </div>
 </div>
 <!-- Modal 2 -->
+
+<!-- Modal 1 -->
+<div class="modal fade" id="myModalAsignarSolicitud" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #337AFF;">
+        <p class="modal-title" style="color: #fff;">Agregar curso</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="fupFormAsignarSolicitud">
+          <div class="row">
+            
+            <div class="col-md-6">
+              <label>Asesor</label>
+              <select class="form-control form-control-sm" name="cmbasignado">
+                <option value="">Seleccione...</option>
+                <?php
+                $asesor = "";
+                $asesor = "2";
+                $sth = $con->prepare("SELECT * FROM users WHERE id_tipo = ? ");
+                $sth->bindParam(1, $asesor);
+                $sth->execute();
+
+                if ($sth->rowCount() > 0) {
+
+                  foreach ($sth as $row) { ?>
+
+                    <option value="<?= $row["id_usuario"]; ?>"><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></option>
+
+                <?php }
+                }
+                ?>
+              </select>
+              <input type="text" class="form-control form-control-sm" name="id" id="id_asignado">
+              <br>
+            </div>
+
+          </div> <!--FINAL ROW-->
+          <div class="row">
+
+            <!-- /.col -->
+            <div class="col-4">
+              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnasignarsolicitud" value="Guardar" />
+              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
+
+
+            </div>
+
+            <!-- /.col -->
+          </div>
+          <div class="statusMsgasignarsolicitud"></div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
+        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal 2 -->
+
+<!-- Modal 1 -->
+<div class="modal fade" id="myModalEnviarCotizacion" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #337AFF;">
+        <p class="modal-title" style="color: #fff;">Enviar cotización</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="fupFormEnviarCotizacion">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Tiempo de entrega</label>
+              <input type="text" class="form-control form-control-sm" name="tiempo_entrega">
+                
+            </div>
+            <div class="col-md-6">
+              <label>Costo total</label>
+              <input type="text" class="form-control form-control-sm" name="costo_total" onkeypress="return validateFloatKeyPress(this,event);">
+                
+            </div>
+            <div class="col-md-6">
+              <label>Detalles de la cotización</label>
+              <textarea class="form-control form-control-sm" name="detalles" cols="8">
+                
+              </textarea>
+              <input type="hidden" class="form-control form-control-sm" name="id_asesor" id="id_asesor_solicitud" value="<?= $usuario_id; ?>">
+              <input type="hidden" class="form-control form-control-sm" name="id_estudiante" id="id_estudiante_solicitud">
+              <input type="hidden" class="form-control form-control-sm" name="id" id="id_cotizacion_solicitud"><br>
+            </div>
+            
+          </div> <!--FINAL ROW-->
+          <div class="row">
+
+            <!-- /.col -->
+            <div class="col-4">
+              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnenviarcotizacion" value="Enviar" />
+              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
+
+
+            </div>
+
+            <!-- /.col -->
+          </div>
+          <div class="statusMsgenviarcotizacion"></div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
+        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal 2 -->
+
+<!-- Modal 2 -->
+<div class="modal fade" id="myModalActualizarCotizacion" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #337AFF;">
+        <p class="modal-title" style="color: #fff;">Detalles cotización</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="fupFormActualizarCotizacion">
+          <div class="row">
+            <div class="col-md-12">
+             <h2 id="titulo_cotizacion"></h2><br>
+             <?php 
+             if ($rol == "3") 
+              { ?>
+               <button type="button" class="btn btn-success aceptar_propuesta">Aceptar propuesta</button>
+               <button type="button" class="btn btn-danger rechazar_propuesta">Rechazar propuesta</button>
+             <?php }
+
+             ?>
+             <br>
+             <button type="button" class="btn btn-success enviar_mensaje">Enviar mensaje</button>
+             
+                
+             
+
+                         </div>
+            <div class="col-md-6">
+              <label>Tiempo de entrega</label>
+              <input type="text" class="form-control form-control-sm" name="tiempo_entrega" id="tiempo_entrega2" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
+                
+            </div>
+            <div class="col-md-6">
+              <label>Costo total</label>
+              <input type="text" class="form-control form-control-sm" name="costo_total" id="costo_total2" onkeypress="return validateFloatKeyPress(this,event);" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
+                
+            </div>
+            <div class="col-md-12">
+              <label>Detalles de la cotización</label>
+              <textarea class="form-control form-control-sm" name="detalles" id="detalles2" cols="8" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
+              </textarea>
+            </div>
+
+            <div class="col-md-12">
+              <label>Detalles de parte del estudiante</label>
+              <textarea class="form-control form-control-sm" name="detalles_estudiante" id="detalles_estudiante" cols="8" <?php $resultado = ($rol == "2") ? "readonly" : ""; ?> <?= $resultado; ?>>
+                
+              </textarea>
+              <input type="hidden" class="form-control form-control-sm" name="titulo_cotizacion" id="titulo_cotizacion2">
+              <input type="hidden" class="form-control form-control-sm" name="creador_id" id="creador_id">
+              <input type="hidden" class="form-control form-control-sm" name="usuario_id" id="usuario_id_cotizacion">
+              <input type="hidden" class="form-control form-control-sm" name="propuesta_id" id="propuesta_id_cotizacion">
+              <input type="text" class="form-control form-control-sm" name="estado_cotizacion" id="estado_cotizacion">
+              <input type="hidden" class="form-control form-control-sm" name="id" id="id_cotizacion_solicitud2"><br>
+            </div>
+            
+          </div> <!--FINAL ROW-->
+          <div class="row">
+
+            <!-- /.col -->
+            <div class="col-4">
+              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarcotizacion" value="Enviar" />
+              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
+
+
+            </div>
+
+            <!-- /.col -->
+          </div>
+          <div class="statusMsgactualizarcotizacion"></div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
+        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal 1 -->
 <!-- modales -->

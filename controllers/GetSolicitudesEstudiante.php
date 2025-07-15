@@ -27,14 +27,14 @@ if (isset($_SESSION["usuario"]))
     // Include pagination library file
     
   // Set some useful configuration
-  $baseURL = 'GetSolicitudes.php';
+  $baseURL = 'GetSolicitudesEstudiante.php';
   $offset = !empty($_POST['page'])?$_POST['page']:0;
   $limit = 5;
   
     
   // Set conditions for search
   
-    $whereSQL = 'WHERE TRUE';
+    $whereSQL = 'WHERE a.id_estudiante = "'.$usuario_id.'"';
     if(!empty($_POST['keywords']))
     {
         $whereSQL = $whereSQL." AND (titulo LIKE '%".$_POST['keywords']."%' || descripcion LIKE '%".$_POST['keywords']."%') ";
@@ -74,7 +74,7 @@ if (isset($_SESSION["usuario"]))
 
     
 
-    $query   = $db->query("SELECT COUNT(*) as rowNum FROM solicitudes ".$whereSQL);
+    $query   = $db->query("SELECT COUNT(*) as rowNum FROM solicitudes a LEFT JOIN tipos_trabajo c ON a.tipo_trabajo_id = c.id_tipo_trabajo LEFT JOIN materias d ON a.materia_relacionada = d.id_materia ".$whereSQL);
     $result  = $query->fetch_assoc();
     $rowCount= $result['rowNum'];
   
@@ -84,8 +84,8 @@ if (isset($_SESSION["usuario"]))
         'totalRows' => $rowCount,
         'perPage' => $limit,
     'currentPage' => $offset,
-    'contentDiv' => 'dataContainer',
-    'link_func' => 'searchFilter'
+    'contentDiv' => 'dataContainerestudiante',
+    'link_func' => 'searchFilter_solicitudes_estudiante'
     );
     $pagination =  new Pagination($pagConfig);
 
@@ -101,12 +101,11 @@ if (isset($_SESSION["usuario"]))
           <table class="table table-hover table-bordered">
     <thead>
 <tr>
-<th>Estudiante</th>
 <th>Título</th>
 <th>Tipo trabajo</th>
 <th>Materia relacionada</th>
 <th>Fecha límite</th>
-<th>Asignar/aceptar</th>
+<th>Asignado</th>
 <th>Editar</th>
 <th>Eliminar</th>
 </tr>
@@ -117,24 +116,23 @@ if (isset($_SESSION["usuario"]))
                 $offset++
         ?>
 <tr>
-<td><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></td>
-<td><?= $row["titulo"]; ?></td>
+  <td><?= $row["titulo"]; ?></td>
 <td><?= $row["tipo_trabajo"]; ?></td>
 <td><?= $row["materia"]; ?></td>
 <td><?= $row["fecha_limite"]; ?></td>
 <?php 
-if ($rol == "1" AND empty($row["id_asesor"])) 
+if (empty($row["id_asesor"])) 
 { ?>
-  <td><button type="button" class="btn btn-success asignar_solicitud"  data-id="<?= $row['id_solicitud'];?>">Asignar</button></td>
+  <td><button type="button" class="btn btn-warning">Sin asignar</button></td>
 <?php }
 
-if ($rol == "1" AND !empty($row["id_asesor"])) 
+if (!empty($row["id_asesor"])) 
 { ?>
-  <td>Asignado</td>
+  <td><button type="button" class="btn btn-success">Asignado</button></td>
 <?php }
 ?>
-<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Detalles</button></td>
+<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_solicitud'];?>">Eliminar</button></td>
 </tr>
             <?php
                     }
@@ -202,7 +200,7 @@ $(".actualizar_solicitud").on("click",function()
     else 
     {
 
-     contenedor = '<tr><td><img src="assets/dashboard/dist/img/documentos/'+archivos[i]+'" width="100";height="100";></td><td><button type="button" class="btn btn-success actualizar_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'">Actualizar</button></td><td><button type="button" class="btn btn-danger delete_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'">Eliminar</button></td></tr>';
+     contenedor = '<tr><td><img class="img-circle elevation-2" src="assets/dashboard/dist/img/documentos/'+archivos[i]+'" width="50";height="50";></td><td><button type="button" class="btn btn-success actualizar_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'">Actualizar</button></td><td><button type="button" class="btn btn-danger delete_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'">Eliminar</button></td></tr>';
       $("#relleno").append(contenedor);
 
     }
