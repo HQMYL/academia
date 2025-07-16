@@ -260,6 +260,11 @@ switch ($request) {
         require ROOT_PATH . 'controllers/rechazar-propuesta.php';
         break;
 
+        case 'agregar-avance':
+        $title = "Agregar avance | AcademiaLink";
+        require ROOT_PATH . 'controllers/agregar-avance.php';
+        break;
+
         case 'sala-chat':
         $title = "Sala de chats | AcademiaLink";
         require ROOT_PATH . 'pages/dashboard/sala-chat.php';
