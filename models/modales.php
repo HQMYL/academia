@@ -1,9 +1,8 @@
-<?php
+<?php 
 require_once __DIR__ . '/../init.php';  // Carga rutas y configuración
 require_once ROOT_PATH .  'config/conexiones.php';
+
 ?>
-
-
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarUsuario" role="dialog" style="overflow-y: scroll;">
   <div class="modal-dialog modal-lg">
@@ -14,382 +13,339 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <form id="fupFormGuardarUsuario">
+        <form id="fupFormAgregarUsuario">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Nombre</label>
               <input type="text" class="form-control form-control-sm" name="nombre" placeholder="Nombre">
             </div>
-            <div class="modal-dialog modal-lg">
 
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header" style="background-color: #337AFF;">
-                  <p class="modal-title" style="color: #fff;">Agregar usuario</p>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                  <form id="fupFormGuardarUsuario">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control form-control-sm" name="nombre" placeholder="Nombre">
+            <div class="col-md-6">
+              <label>Apellidos</label>
+              <input type="text" class="form-control form-control-sm" name="apellidos" placeholder="Apellidos">
+            </div>
 
-                        <input type="hidden" class="form-control form-control-sm" name="usuario_id" id="usuario_id" value="<?= $usuario_id; ?>">
-                      </div>
+            <div class="col-md-6">
+              <label>Dirección</label>
+              <input type="text" class="form-control form-control-sm" name="dir" placeholder="Dirección">
+            </div>
 
-                      <div class="col-md-4">
-                        <label>Apellidos</label>
-                        <input type="text" class="form-control form-control-sm" name="apellidos" placeholder="Apellidos">
-                      </div>
+            <div class="col-md-6">
+              <label>Correo</label>
+              <input type="text" class="form-control form-control-sm" name="correo" placeholder="Correo">
+            </div>
 
-                      <div class="col-md-4">
-                        <label>Dirección</label>
-                        <input type="text" class="form-control form-control-sm" name="dir" placeholder="Dirección">
-                      </div>
+            <div class="col-md-6">
+              <label>Teléfono</label>
 
-                      <div class="col-md-4">
-                        <label>Correo</label>
-                        <input type="text" class="form-control form-control-sm" name="correo" placeholder="Correo">
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Teléfono</label>
-
-                        <input type="text" class="form-control form-control-sm" name="tel" placeholder="Teléfono">
-
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Móvil</label>
-                        <input type="text" class="form-control form-control-sm" name="movil" placeholder="Móvil">
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Usuario</label>
-                        <input type="text" class="form-control form-control-sm" name="user" id="user" placeholder="Usuario">
-                        <h3 id="comprobar"></h3>
-
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Contraseña</label>
-                        <input class="form-control form-control-sm" type="password" name="pass" id="pass1">
-                      </div>
-
-                      <div class="col-md-4">
-
-                        <label for="cat">Confirmar contraseña:</label>
-
-                        <input class="form-control form-control-sm" type="password" id="pass2">
-
-                        <div id="respuesta" style="display: none;">
-                          <h3>Las contraseñas introducidas no son iguales</h3>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Tipo de usuario</label>
-                        <select class="form-control form-control-sm" name="cmbrol">
-                          <option value="">Seleccione...</option>
-                          <?php
-                          $sth = $con->prepare("SELECT * FROM roles ");
-                          #$sth->bindParam(1, $usuario);
-                          $sth->execute();
-
-                          if ($sth->rowCount() > 0) {
-
-                            foreach ($sth as $row) { ?>
-
-                              <option value="<?= $row["id_rol"]; ?>"><?= $row["rol"]; ?></option>
-
-                          <?php }
-                          }
-                          ?>
-                        </select>
-
-                      </div>
-
-                      <div class="col-md-4">
-
-                        <label for="cat">Estado:</label>
-                        <select class="form-control form-control-sm" name="cmbestado">
-                          <option value="">Seleccione...</option>
-                          <?php
-                          $sth = $con->prepare("SELECT * FROM estados ");
-                          #$sth->bindParam(1, $usuario);
-                          $sth->execute();
-
-                          if ($sth->rowCount() > 0) {
-
-                            foreach ($sth as $row) { ?>
-
-                              <option value="<?= $row["id"]; ?>"><?= $row["estado"]; ?></option>
-
-                          <?php }
-                          }
-                          ?>
-                        </select>
-
-                      </div>
-
-                      <div class="col-md-4">
-
-                        <label for="cat">Foto de perfil:</label>
-
-                        <input class="form-control form-control-sm" type="file" name="archivo">
-                        <br>
-                      </div>
-
-                    </div> <!--FINAL ROW-->
-                    <div class="row">
-
-                      <!-- /.col -->
-                      <div class="col-4">
-                        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnguardarusuario" value="Guardar" />
-                        <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-                      </div>
-
-                      <!-- /.col -->
-                    </div>
-                    <div class="statusMsgguardarusuario"></div>
-                  </form>
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-                  <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-                  <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
-                </div>
-              </div>
+              <input type="text" class="form-control form-control-sm" name="tel" placeholder="Teléfono">
 
             </div>
-          </div>
-          <!-- Modal 1 -->
 
-          <!-- Modal 2 -->
-          <div class="modal fade" id="myModalActualizarUsuario" role="dialog" style="overflow-y: scroll;">
-            <div class="modal-dialog modal-lg">
+            <div class="col-md-6">
+              <label>Móvil</label>
+              <input type="text" class="form-control form-control-sm" name="movil" placeholder="Móvil">
+            </div>
 
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header" style="background-color: #337AFF;">
-                  <p class="modal-title" style="color: #fff;">Actualizar usuario</p>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                  <form id="fupFormActualizarUsuario">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control form-control-sm" name="nombre" id="nombre" placeholder="Nombre">
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Apellidos</label>
-                        <input type="text" class="form-control form-control-sm" name="apellidos" id="apellidos" placeholder="Apellidos">
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Dirección</label>
-                        <input type="text" class="form-control form-control-sm" name="dir" id="dir" placeholder="Dirección">
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Correo</label>
-                        <input type="text" class="form-control form-control-sm" name="correo" id="correo" placeholder="Correo">
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Teléfono</label>
-
-                        <input type="text" class="form-control form-control-sm" name="tel" id="tel" placeholder="Teléfono">
-
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Móvil</label>
-                        <input type="text" class="form-control form-control-sm" name="movil" id="movil" placeholder="Móvil">
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Usuario</label>
-                        <input type="text" class="form-control form-control-sm" name="user" id="user2" placeholder="Usuario">
-                        <h3 id="comprobar"></h3>
-
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Contraseña</label>
-                        <input class="form-control form-control-sm" type="hidden" name="pass" id="pass0">
-                        <input class="form-control form-control-sm" type="password" name="pass11" id="pass11">
-                      </div>
-
-                      <div class="col-md-4">
-
-                        <label for="cat">Confirmar contraseña:</label>
-
-                        <input class="form-control form-control-sm" type="password" id="pass12">
-
-                        <div id="respuesta2" style="display: none;">
-                          <h3>Las contraseñas introducidas no son iguales</h3>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <label>Tipo de usuario</label>
-                        <select class="form-control form-control-sm" name="cmbrol" id="cmbrol">
-                          <option value="">Seleccione...</option>
-                          <?php
-                          $sth = $con->prepare("SELECT * FROM roles ");
-                          #$sth->bindParam(1, $usuario);
-                          $sth->execute();
-
-                          if ($sth->rowCount() > 0) {
-
-                            foreach ($sth as $row) { ?>
-
-                              <option value="<?= $row["id_rol"]; ?>"><?= $row["rol"]; ?></option>
-
-                          <?php }
-                          }
-                          ?>
-                        </select>
-
-                      </div>
-
-                      <div class="col-md-4">
-
-                        <label for="cat">Estado:</label>
-                        <select class="form-control form-control-sm" name="cmbestado" id="cmbestado">
-                          <option value="">Seleccione...</option>
-                          <?php
-                          $sth = $con->prepare("SELECT * FROM estados ");
-                          #$sth->bindParam(1, $usuario);
-                          $sth->execute();
-
-                          if ($sth->rowCount() > 0) {
-
-                            foreach ($sth as $row) { ?>
-
-                              <option value="<?= $row["id"]; ?>"><?= $row["estado"]; ?></option>
-
-                          <?php }
-                          }
-                          ?>
-                        </select>
-
-                      </div>
-                      <div class="col-md-4">
-
-                        <label for="cat">Foto de perfil actual:</label>
-                        <img src="" id="img" width="150" ; height="150" ;>
-                      </div>
-                      <div class="col-md-4">
-
-                        <label for="cat">Foto de perfil:</label>
-
-                        <input class="form-control form-control-sm" type="file" name="archivo">
-                        <img src="" name="imagen_actual" id="imagen_actual">
-                        <input class="form-control form-control-sm" type="hidden" name="id" id="id_usuario">
-                        <br>
-                      </div>
-
-                    </div> <!--FINAL ROW-->
-                    <div class="row">
-
-                      <!-- /.col -->
-                      <div class="col-4">
-                        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarusuario" value="Actualizar" />
-                        <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-                      </div>
-
-                      <!-- /.col -->
-                    </div>
-                    <div class="statusMsgactualizarusuario"></div>
-                  </form>
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-                  <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-                  <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
-                </div>
-              </div>
+            <div class="col-md-6">
+              <label>Usuario</label>
+              <input type="text" class="form-control form-control-sm" name="user" id="user" placeholder="Usuario">
+              <h3 id="comprobar"></h3>
 
             </div>
-          </div>
-          <!-- Modal 2 -->
 
-          <!-- Modal 1 -->
-          <div class="modal fade" id="myModalAgregarCurso" role="dialog" style="overflow-y: scroll;">
-            <div class="modal-dialog modal-lg">
+            <div class="col-md-6">
+              <label>Contraseña</label>
+              <input class="form-control form-control-sm" type="password" name="pass" id="pass1">
+            </div>
 
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header" style="background-color: #337AFF;">
-                  <p class="modal-title" style="color: #fff;">Agregar curso</p>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                  <form id="fupFormAgregarCurso">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label>Curso</label>
-                        <input type="text" class="form-control form-control-sm" name="nombre" placeholder="Nombre">
-                      </div>
+            <div class="col-md-6">
 
-                      <div class="col-md-6">
-                        <label>Descripción</label>
-                        <textarea class="form-control form-control-sm" name="descripcion" cols="5"></textarea>
+              <label for="cat">Confirmar contraseña:</label>
 
-                      </div>
+              <input class="form-control form-control-sm" type="password" id="pass2">
 
-                      <div class="col-md-6">
-                        <label>Duración</label>
-                        <input type="text" class="form-control form-control-sm" name="duracion" placeholder="Duración">
-                      </div>
+              <div id="respuesta" style="display: none;">
+                <h3>Las contraseñas introducidas no son iguales</h3>
+              </div>
+            </div>
 
-                      <div class="col-md-6">
-                        <label>Profesor asignado</label>
-                        <select class="form-control form-control-sm" name="cmbusuario">
-                          <option value="">Seleccione...</option>
-                          <?php
-                          $asesor = "";
-                          $asesor = "2";
-                          $sth = $con->prepare("SELECT * FROM users WHERE id_tipo = ? ");
-                          $sth->bindParam(1, $asesor);
-                          $sth->execute();
+            <div class="col-md-6">
+              <label>Tipo de usuario</label>
+              <select class="form-control form-control-sm" name="cmbrol">
+                <option value="">Seleccione...</option>
+                <?php
+                $sth = $con->prepare("SELECT * FROM roles ");
+                #$sth->bindParam(1, $usuario);
+                $sth->execute();
 
-                          if ($sth->rowCount() > 0) {
+                if ($sth->rowCount() > 0) {
 
-                            foreach ($sth as $row) { ?>
+                  foreach ($sth as $row) { ?>
 
-                              <option value="<?= $row["id_usuario"]; ?>"><?= $row["nombre"]; ?></option>
+                    <option value="<?= $row["id_rol"]; ?>"><?= $row["rol"]; ?></option>
 
-                          <?php }
-                          }
-                          ?>
-                        </select><br>
-                      </div>
+                <?php }
+                }
+                ?>
+              </select>
 
-                    </div> <!--FINAL ROW-->
+            </div>
 
-                    <div class="statusMsgagregarcurso"></div>
+            <div class="col-md-6">
 
+              <label for="cat">Estado:</label>
+              <select class="form-control form-control-sm" name="cmbestado">
+                <option value="">Seleccione...</option>
+                <?php
+                $sth = $con->prepare("SELECT * FROM estados ");
+                #$sth->bindParam(1, $usuario);
+                $sth->execute();
 
-                </div>
-                <div class="modal-footer">
-                  <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarcurso" value="Guardar" />
+                if ($sth->rowCount() > 0) {
+
+                  foreach ($sth as $row) { ?>
+
+                    <option value="<?= $row["id"]; ?>"><?= $row["estado"]; ?></option>
+
+                <?php }
+                }
+                ?>
+              </select>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <label for="cat">Foto de perfil:</label>
+
+              <input class="form-control form-control-sm" type="file" name="archivo">
+              <br>
+            </div>
+
+          </div> <!--FINAL ROW-->
+          
+          <div class="statusMsgagregarusuario"></div>
+        
+
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>-->
+
+              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarusuario" value="Guardar" />
+              </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal 1 -->
+
+<!-- Modal 2 -->
+<div class="modal fade" id="myModalActualizarUsuario" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #337AFF;">
+        <p class="modal-title" style="color: #fff;">Actualizar usuario</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="fupFormActualizarUsuario">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Nombre</label>
+              <input type="text" class="form-control form-control-sm" name="nombre" id="nombre" placeholder="Nombre">
+            </div>
+
+            <div class="col-md-6">
+              <label>Apellidos</label>
+              <input type="text" class="form-control form-control-sm" name="apellidos" id="apellidos" placeholder="Apellidos">
+            </div>
+
+            <div class="col-md-6">
+              <label>Dirección</label>
+              <input type="text" class="form-control form-control-sm" name="dir" id="dir" placeholder="Dirección">
+            </div>
+
+            <div class="col-md-6">
+              <label>Correo</label>
+              <input type="text" class="form-control form-control-sm" name="correo" id="correo" placeholder="Correo">
+            </div>
+
+            <div class="col-md-6">
+              <label>Teléfono</label>
+
+              <input type="text" class="form-control form-control-sm" name="tel" id="tel" placeholder="Teléfono">
+
+            </div>
+
+            <div class="col-md-6">
+              <label>Móvil</label>
+              <input type="text" class="form-control form-control-sm" name="movil" id="movil" placeholder="Móvil">
+            </div>
+
+            <div class="col-md-6">
+              <label>Usuario</label>
+              <input type="text" class="form-control form-control-sm" name="user" id="user2" placeholder="Usuario">
+              <h3 id="comprobar"></h3>
+
+            </div>
+
+            <div class="col-md-6">
+              <label>Contraseña</label>
+              <input class="form-control form-control-sm" type="hidden" name="pass" id="pass0">
+              <input class="form-control form-control-sm" type="password" name="pass11" id="pass11">
+            </div>
+
+            <div class="col-md-6">
+
+              <label for="cat">Confirmar contraseña:</label>
+
+              <input class="form-control form-control-sm" type="password" id="pass12">
+
+              <div id="respuesta2" style="display: none;">
+                <h3>Las contraseñas introducidas no son iguales</h3>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label>Tipo de usuario</label>
+              <select class="form-control form-control-sm" name="cmbrol" id="cmbrol">
+                <option value="">Seleccione...</option>
+                <?php
+                $sth = $con->prepare("SELECT * FROM roles ");
+                #$sth->bindParam(1, $usuario);
+                $sth->execute();
+
+                if ($sth->rowCount() > 0) {
+
+                  foreach ($sth as $row) { ?>
+
+                    <option value="<?= $row["id_rol"]; ?>"><?= $row["rol"]; ?></option>
+
+                <?php }
+                }
+                ?>
+              </select>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <label for="cat">Estado:</label>
+              <select class="form-control form-control-sm" name="cmbestado" id="cmbestado">
+                <option value="">Seleccione...</option>
+                <?php
+                $sth = $con->prepare("SELECT * FROM estados ");
+                #$sth->bindParam(1, $usuario);
+                $sth->execute();
+
+                if ($sth->rowCount() > 0) {
+
+                  foreach ($sth as $row) { ?>
+
+                    <option value="<?= $row["id"]; ?>"><?= $row["estado"]; ?></option>
+
+                <?php }
+                }
+                ?>
+              </select>
+
+            </div>
+            <div class="col-md-6">
+
+              <label for="cat">Foto de perfil actual:</label>
+              <img src="" id="img" width="150" ; height="150" ;>
+            </div>
+            <div class="col-md-6">
+
+              <label for="cat">Foto de perfil:</label>
+
+              <input class="form-control form-control-sm" type="file" name="archivo">
+              <img src="" name="imagen_actual" id="imagen_actual">
+              <input class="form-control form-control-sm" type="hidden" name="id" id="id_usuario">
+              <br>
+            </div>
+
+          </div> <!--FINAL ROW-->
+          
+          <div class="statusMsgactualizarusuario"></div>
+        
+
+      </div>
+      <div class="modal-footer">
+        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarusuario" value="Actualizar" />
         </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal 2 -->
+
+<!-- Modal 1 -->
+<div class="modal fade" id="myModalAgregarCurso" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #337AFF;">
+        <p class="modal-title" style="color: #fff;">Agregar curso</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="fupFormAgregarCurso">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Curso</label>
+              <input type="text" class="form-control form-control-sm" name="nombre" placeholder="Nombre">
+            </div>
+
+            <div class="col-md-6">
+              <label>Descripción</label>
+              <textarea class="form-control form-control-sm" name="descripcion" cols="5"></textarea>
+
+            </div>
+
+            <div class="col-md-6">
+              <label>Duración</label>
+              <input type="text" class="form-control form-control-sm" name="duracion" placeholder="Duración">
+            </div>
+
+            <div class="col-md-6">
+              <label>Profesor asignado</label>
+              <select class="form-control form-control-sm" name="cmbusuario">
+                <option value="">Seleccione...</option>
+                <?php
+                $asesor = "";
+                $asesor = "2";
+                $sth = $con->prepare("SELECT * FROM users WHERE id_tipo = ? ");
+                $sth->bindParam(1, $asesor);
+                $sth->execute();
+
+                if ($sth->rowCount() > 0) {
+
+                  foreach ($sth as $row) { ?>
+
+                    <option value="<?= $row["id_usuario"]; ?>"><?= $row["nombre"]; ?></option>
+
+                <?php }
+                }
+                ?>
+              </select><br>
+            </div>
+
+          </div> <!--FINAL ROW-->
+          
+          <div class="statusMsgagregarcurso"></div>
+        
+
+      </div>
+      <div class="modal-footer">
+         <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarcurso" value="Guardar" />
+         </form>
       </div>
     </div>
 
@@ -450,14 +406,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
           </div> <!--FINAL ROW-->
-
+          
           <div class="statusMsgactualizarcurso"></div>
-
+        
 
       </div>
       <div class="modal-footer">
-        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarcurso" value="Actualizar" />
-        </form>
+          <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarcurso" value="Actualizar" />
+          </form>
       </div>
     </div>
 
@@ -484,28 +440,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregartipo" value="Guardar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsgagregartipo"></div>
-        </form>
+        
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
+        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregartipo" value="Guardar" />
+        </form>
       </div>
     </div>
 
@@ -535,28 +477,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizartipo" value="Actualizar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsgactualizartipo"></div>
-        </form>
+        
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
+       <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizartipo" value="Actualizar" />
+       </form>
       </div>
     </div>
 
@@ -584,27 +512,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarmateria" value="Guardar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsgagregarmateria"></div>
-        </form>
+        
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
+        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarmateria" value="Guardar" />
+        </form>
 
       </div>
     </div>
@@ -635,27 +550,13 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarmateria" value="Actualizar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsgactualizarmateria"></div>
-        </form>
-
+        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
+        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarmateria" value="Actualizar" />
+        </form>
 
       </div>
     </div>
@@ -684,28 +585,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarnivel" value="Guardar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsgagregarnivel"></div>
-        </form>
+        
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
+       <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarnivel" value="Guardar" />
+       </form>
       </div>
     </div>
 
@@ -735,27 +622,13 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarnivel" value="Actualizar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsgactualizarnivel"></div>
-        </form>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
+        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarnivel" value="Actualizar" />
+        </form>
 
       </div>
     </div>
@@ -787,28 +660,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnlogotipo" value="Actualizar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsglogotipo"></div>
-        </form>
+        
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
+        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnlogotipo" value="Actualizar" />
+        </form>
       </div>
     </div>
 
@@ -829,12 +688,12 @@ require_once ROOT_PATH .  'config/conexiones.php';
       <div class="modal-body">
         <form id="fupFormAgregarSolicitud">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Título</label>
               <input type="text" class="form-control form-control-sm" name="titulo" placeholder="Título">
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Nivel educativo</label>
               <select class="form-control form-control-sm" name="cmbnivel">
                 <option value="">Seleccione...</option>
@@ -856,7 +715,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
               </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Tipo de trabajo</label>
               <select class="form-control form-control-sm" name="cmbtipo">
                 <option value="">Seleccione...</option>
@@ -878,7 +737,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
               </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Materia relacionada</label>
               <select class="form-control form-control-sm" name="cmbmateria">
                 <option value="">Seleccione...</option>
@@ -900,14 +759,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
               </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Fecha límite</label>
 
               <input type="text" class="form-control form-control-sm" name="fecha" id="fecha">
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Descripción</label>
               <textarea class="form-control form-control-sm" name="descripcion" cols="8">
   Descripción
@@ -915,12 +774,12 @@ require_once ROOT_PATH .  'config/conexiones.php';
               <input type="hidden" class="form-control form-control-sm" name="id_estudiante" value="<?= $usuario_id; ?>">
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Documentos</label>
               <div class="field_wrapper">
                 <div>
 
-                  <input type="file" class="form-control form-sm" name="archivo[]">
+                  <input type="file" class="form-control form-sm pdf" name="archivo[]">
                   <a href="javascript:void(0);" class="agregar_documento" title="Add field"> <img src="assets/dashboard/dist/img/iconos/add-icon.png" /></a>
                 </div>
               </div>
@@ -928,28 +787,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarsolicitud" value="Guardar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsgagregarsolicitud"></div>
-        </form>
+        
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
+        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarsolicitud" value="Guardar" />
+        </form>
       </div>
     </div>
 
@@ -970,12 +815,25 @@ require_once ROOT_PATH .  'config/conexiones.php';
       <div class="modal-body">
         <form id="fupFormActualizarSolicitud">
           <div class="row">
-            <div class="col-md-4">
+            <h2 id="titulo_cotizacion2"></h2>
+            <div class="col-md-12">
+    <div class="col-md-6">
+     <?php 
+   if ($rol == "2") 
+    { ?>
+     <button type="button" class="btn btn-success enviar_cotizacion">Enviar cotización</button>
+   <?php }
+  ?> 
+    </div>
+  </div>
+            <div class="col-md-6">
               <label>Título</label>
-              <input type="text" class="form-control form-control-sm" name="titulo" id="titulo">
+              <input type="text" class="form-control form-control-sm" name="titulo" id="titulo" <?php $resultado = $rol == "2" ? "readonly" : ""; ?> <?= $resultado; ?>>
             </div>
-
-            <div class="col-md-4">
+            <?php 
+            if ($rol != "3") 
+              { ?>
+              <div class="col-md-6">
               <label>Asesor</label>
               <select class="form-control form-control-sm" name="cmbasesor" id="cmbprof2">
                 <option value="">Seleccione...</option>
@@ -996,10 +854,13 @@ require_once ROOT_PATH .  'config/conexiones.php';
                 ?>
               </select>
             </div>
+            <?php }
+            ?>
+            
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Nivel educativo</label>
-              <select class="form-control form-control-sm" name="cmbnivel" id="cmbnivel">
+              <select class="form-control form-control-sm" name="cmbnivel" id="cmbnivel" <?php $resultado = $rol == "2" ? "disabled" : ""; ?> <?= $resultado; ?>>
                 <option value="">Seleccione...</option>
                 <?php
 
@@ -1019,9 +880,9 @@ require_once ROOT_PATH .  'config/conexiones.php';
               </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Tipo de trabajo</label>
-              <select class="form-control form-control-sm" name="cmbtipo" id="cmbtipo">
+              <select class="form-control form-control-sm" name="cmbtipo" id="cmbtipo" <?php $resultado = $rol == "2" ? "disabled" : ""; ?> <?= $resultado; ?>>
                 <option value="">Seleccione...</option>
                 <?php
 
@@ -1041,9 +902,9 @@ require_once ROOT_PATH .  'config/conexiones.php';
               </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Materia relacionada</label>
-              <select class="form-control form-control-sm" name="cmbmateria" id="cmbmateria">
+              <select class="form-control form-control-sm" name="cmbmateria" id="cmbmateria" <?php $resultado = $rol == "2" ? "disabled" : ""; ?> <?= $resultado; ?>>
                 <option value="">Seleccione...</option>
                 <?php
 
@@ -1063,16 +924,16 @@ require_once ROOT_PATH .  'config/conexiones.php';
               </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Fecha límite</label>
 
-              <input type="text" class="form-control form-control-sm" name="fecha" id="fecha_limite">
+              <input type="text" class="form-control form-control-sm" name="fecha" id="fecha_limite" <?php $resultado = $rol == "2" ? "readonly" : ""; ?> <?= $resultado; ?>>
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Descripción</label>
-              <textarea class="form-control form-control-sm" name="descripcion" id="descripcion_solicitud" cols="8">
+              <textarea class="form-control form-control-sm" name="descripcion" id="descripcion_solicitud" cols="8" <?php $resultado = $rol == "2" ? "readonly" : ""; ?> <?= $resultado; ?>>
   Descripción
 </textarea><br>
               <input type="hidden" class="form-control form-control-sm" name="id_estudiante" id="id_estudiante">
@@ -1082,20 +943,9 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 
           </div> <!--FINAL ROW-->
-          <div class="row">
-
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarsolicitud" value="Actualizar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
-
-
-            </div>
-
-            <!-- /.col -->
-          </div>
+          
           <div class="statusMsgactualizarsolicitud"></div>
-        </form>
+        
         <div class="col-md-12">
           <br>
           <h3>Documentos</h3>
@@ -1104,8 +954,9 @@ require_once ROOT_PATH .  'config/conexiones.php';
             <table class="table table-hover table-bordered">
               <thead>
                 <tr>
-                  <th>Título</th>
-                  <th>Tipo de trabajo</th>
+                  <th>Archivo</th>
+        <th>Actualizar</th>
+        <th>Eliminar</th>
                 </tr>
               </thead>
               <tbody id="relleno">
@@ -1117,11 +968,8 @@ require_once ROOT_PATH .  'config/conexiones.php';
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
+       <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarsolicitud" value="Actualizar" />
+       </form>
       </div>
     </div>
 
@@ -1143,21 +991,21 @@ require_once ROOT_PATH .  'config/conexiones.php';
           <div class="row">
             <div class="col-md-6">
               <label>Archivo</label>
-              <input type="file" class="form-control form-control-sm" name="archivo">
+              <input type="file" class="form-control form-control-sm pdf" name="archivo">
 
-              <input type="text" class="form-control form-control-sm" name="id" id="id_archivo_solicitud">
+              <input type="hidden" class="form-control form-control-sm" name="id" id="id_archivo_solicitud">
             </div>
 
 
           </div> <!--FINAL ROW-->
-
+          
           <div class="statusMsgagregararchivo"></div>
-
+        
 
       </div>
       <div class="modal-footer">
         <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregararchivo" value="Guardar" />
-        </form>
+         </form>
       </div>
     </div>
 
@@ -1184,44 +1032,59 @@ require_once ROOT_PATH .  'config/conexiones.php';
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_sol">
             </div>
 
-            <div class="col-md-4">
-              <label>Descripción</label>
-              <textarea class="form-control form-control-sm" name="descripcion" cols="5"></textarea>
-
-            </div>
-
-            <div class="col-md-4">
-              <label>Duración</label>
-              <input type="text" class="form-control form-control-sm" name="duracion" placeholder="Duración">
-            </div>
-
-            <div class="col-md-4">
-              <label>Profesor asignado</label>
-              <select class="form-control form-control-sm" name="cmbusuario">
-                <option value="">Seleccione...</option>
-                <?php
-                $asesor = "";
-                $asesor = "2";
-                $sth = $con->prepare("SELECT * FROM users WHERE id_tipo = ? ");
-                $sth->bindParam(1, $asesor);
-                $sth->execute();
-
-                if ($sth->rowCount() > 0) {
-
-                  foreach ($sth as $row) { ?>
-
-                    <option value="<?= $row["id_usuario"]; ?>"><?= $row["nombre"]; ?></option>
-
-                <?php }
-                }
-                ?>
-              </select><br>
-            </div>
-
           </div> <!--FINAL ROW-->
+          
+          <div class="statusMsgactualizararchivo"></div>
+        
 
+      </div>
+      <div class="modal-footer">
+        <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizararchivo" value="Actualizar" />
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal 2 -->
+
+<!-- Modal 1 -->
+<div class="modal fade" id="myModalEnviarCotizacion" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #337AFF;">
+        <p class="modal-title" style="color: #fff;">Enviar cotización</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="fupFormEnviarCotizacion">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Tiempo de entrega</label>
+              <input type="text" class="form-control form-control-sm" name="tiempo_entrega">
+                
+            </div>
+            <div class="col-md-6">
+              <label>Costo total</label>
+              <input type="text" class="form-control form-control-sm" name="costo_total" onkeypress="return validateFloatKeyPress(this,event);">
+                
+            </div>
+            <div class="col-md-6">
+              <label>Detalles de la cotización</label>
+              <textarea class="form-control form-control-sm" name="detalles" cols="8">
+                
+              </textarea>
+              <input type="hidden" class="form-control form-control-sm" name="id_asesor" id="id_asesor_solicitud" value="<?= $usuario_id; ?>">
+              <input type="hidden" class="form-control form-control-sm" name="id_estudiante" id="id_estudiante_solicitud">
+              <input type="hidden" class="form-control form-control-sm" name="id" id="id_cotizacion_solicitud"><br>
+            </div>
+            
+          </div> <!--FINAL ROW-->
+          
           <div class="statusMsgenviarcotizacion"></div>
-
+        
 
       </div>
       <div class="modal-footer">
@@ -1247,31 +1110,66 @@ require_once ROOT_PATH .  'config/conexiones.php';
       <div class="modal-body">
         <form id="fupFormActualizarCotizacion">
           <div class="row">
+            <div class="col-md-12">
+             <h2 id="titulo_cotizacion"></h2><br>
+             <?php 
+             if ($rol == "3") 
+              { ?>
+               <button type="button" class="btn btn-success aceptar_propuesta">Aceptar propuesta</button>
+               <button type="button" class="btn btn-danger rechazar_propuesta">Rechazar propuesta</button>
+             <?php }
 
-            <!-- /.col -->
-            <div class="col-4">
-              <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregarcurso" value="Guardar" />
-              <!--<button type="submit" class="btn btn-secondary">Guardar</button>-->
+             ?>
+             <br>
+             <button type="button" class="btn btn-success enviar_mensaje">Enviar mensaje</button>
+             
+                
+             
 
-
+                         </div>
+            <div class="col-md-6">
+              <label>Tiempo de entrega</label>
+              <input type="text" class="form-control form-control-sm" name="tiempo_entrega" id="tiempo_entrega2" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
+                
+            </div>
+            <div class="col-md-6">
+              <label>Costo total</label>
+              <input type="text" class="form-control form-control-sm" name="costo_total" id="costo_total2" onkeypress="return validateFloatKeyPress(this,event);" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
+                
+            </div>
+            <div class="col-md-12">
+              <label>Detalles de la cotización</label>
+              <textarea class="form-control form-control-sm" name="detalles" id="detalles2" cols="8" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
+              </textarea>
             </div>
 
-            <!-- /.col -->
-          </div>
-          <div class="statusMsgagregarcurso"></div>
-        </form>
+            <div class="col-md-12">
+              <label>Detalles de parte del estudiante</label>
+              <textarea class="form-control form-control-sm" name="detalles_estudiante" id="detalles_estudiante" cols="8" <?php $resultado = ($rol == "2") ? "readonly" : ""; ?> <?= $resultado; ?>>
+                
+              </textarea>
+              <input type="hidden" class="form-control form-control-sm" name="titulo_cotizacion" id="titulo_cotizacion2">
+              <input type="hidden" class="form-control form-control-sm" name="creador_id" id="creador_id">
+              <input type="hidden" class="form-control form-control-sm" name="usuario_id" id="usuario_id_cotizacion">
+              <input type="hidden" class="form-control form-control-sm" name="propuesta_id" id="propuesta_id_cotizacion">
+              <input type="hidden" class="form-control form-control-sm" name="estado_cotizacion" id="estado_cotizacion">
+              <input type="hidden" class="form-control form-control-sm" name="id" id="id_cotizacion_solicitud2"><br>
+            </div>
+            
+          </div> <!--FINAL ROW-->
+          
+          <div class="statusMsgactualizarcotizacion"></div>
+        
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
-        <!--<input  type="submit"  name="submit" class="btn btn-primary btn-rounded submitBtn" value="Guardar">-->
-
+       <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnactualizarcotizacion" value="Enviar" />
+       </form>
       </div>
     </div>
 
   </div>
 </div>
-<!-- Modal 2 -->
+
+<!-- Modal 1 -->
 <!-- modales -->
