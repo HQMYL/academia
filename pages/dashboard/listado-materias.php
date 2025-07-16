@@ -27,7 +27,10 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
             
           </div><!-- /.col -->
           <div class="col-sm-6">
-            
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?= BASE_URL ?>admin">Inicio</a></li>
+              <li class="breadcrumb-item active">Listado de materias</li>
+            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -46,21 +49,28 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
 <?php 
 if ($rol == "1") 
 { ?>
-<button type="button" class="btn btn-info agregar_materia"><i class="fa fa-solid fa-plus"></i> Agregar materia</button>
+
 <label for="inputEmail4"></label>
 <div class="row align-items-stretch mb-5">
-<div class="col-md-6">
+<div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Filtrar</label>
 <input type="text" class="form-control form-control-sm" name="keywords" id="keywords_materias" onkeyup="searchFilter_materias();"><br>
-<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_materias();">
-<a href="<?= BASE_URL ?>listado-materias" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="form-group">
+<label for="inputPassword4"></label>
+
+<a href="<?= BASE_URL ?>listado-materias" class="btn btn-success cot"><i class="fa fa-fw fa-sync"></i></a>
 </div>
 </div>
 
 </div>
 <!-- ESPACIO PARA FILTROS -->
-
+<button type="button" class="btn btn-info agregar_materia"><i class="fa fa-solid fa-plus"></i> Agregar materia</button>
 <div class="datalist-wrapper">
 <!-- Loading overlay -->
 <div class="loading-overlay" style="display: none;"><div class="overlay-content">Cargando...</div></div>
@@ -110,8 +120,8 @@ while($row = $query->fetch_assoc()){
 ?>
 <tr>
 <td><?= $row["materia"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_materia" data-id="<?= $row['id_materia'];?>" data-materia="<?= $row['materia'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_materia"  data-id="<?= $row['id_materia'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_materia" data-id="<?= $row['id_materia'];?>" data-materia="<?= $row['materia'];?>"><i class="fas fa-edit"></i></button></td>
+<td><button type="button" class="btn btn-danger delete_materia"  data-id="<?= $row['id_materia'];?>"><i class="fas fa-trash"></i></button></td>
 </tr>
 <?php
 }

@@ -1,6 +1,7 @@
 <?php
 session_start();
-include("conexion.php");
+require_once __DIR__ . '/../init.php';  // Carga rutas y configuración
+require_once ROOT_PATH . 'config/conexion.php';
 
 $usuario = "";
 if (isset($_SESSION["usuario"])) {

@@ -83,6 +83,16 @@ elseif ($rol == "2")
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="<?= BASE_URL ?>cotizaciones" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Cotizaciones
+                
+              </p>
+            </a>
+          </li>
 <?php }
 
 elseif ($rol == "3") 
@@ -101,6 +111,16 @@ elseif ($rol == "3")
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Solicitudes
+                
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="<?= BASE_URL ?>cotizaciones" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Cotizaciones
                 
               </p>
             </a>

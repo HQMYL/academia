@@ -6,7 +6,7 @@ require_once ROOT_PATH . 'config/conexion.php';
 require_once ROOT_PATH .  'config/dbconfig2.php';
 
 $uploadDir = 'assets/dashboard/dist/img/documentos/';
-$allowTypes = array('pdf','xlsx','pptx','docx','txt','zip','rar');
+$allowTypes = array('pdf','xlsx','pptx','docx','txt','zip','rar','jpg','jpeg','gif','png','jfif');
 $fallo = "Huboun error inténtalo nuevamente";
   $fallo2 = "El tamaño del archivo debe ser máximo de 5MG";
   $fallo3 = "Solo se permiten archivos PDF,DOCX,XLSX,PPTX,ZIP,RAR,TXT";
@@ -65,6 +65,9 @@ if(isset($_POST['id_estudiante']))
     $id_estudiante = $_POST["id_estudiante"];
 }
 
+$estado = "";
+$estado = "Pendiente";
+
 $filesArr = $_FILES["archivo"];
 
  $fileNames = array_filter($filesArr['name']);
@@ -102,7 +105,7 @@ $filesArr = $_FILES["archivo"];
 if($uploadStatus == 1)
 { #SI LA SUBIDA FUE EXITOSA
 
-  $stmt = $DB_con->prepare('INSERT INTO solicitudes(titulo,nivel_educativo,tipo_trabajo_id,materia_relacionada,fecha_limite,descripcion,id_estudiante,archivos) VALUES(:titulo,:nivel_educativo,:tipo_trabajo,:materia,:fecha_limite,:descripcion,:id_estudiante,:uploadedFileStr)');
+  $stmt = $DB_con->prepare('INSERT INTO solicitudes(titulo,nivel_educativo,tipo_trabajo_id,materia_relacionada,fecha_limite,descripcion,id_estudiante,estado_solicitud,archivos) VALUES(:titulo,:nivel_educativo,:tipo_trabajo,:materia,:fecha_limite,:descripcion,:id_estudiante,:estado,:uploadedFileStr)');
       $stmt->bindParam(':titulo',$titulo);
       $stmt->bindParam(':nivel_educativo',$nivel_educativo);
       $stmt->bindParam(':tipo_trabajo',$tipo_trabajo);
@@ -110,6 +113,7 @@ if($uploadStatus == 1)
       $stmt->bindParam(':fecha_limite',$fecha_limite);
       $stmt->bindParam(':descripcion',$descripcion);
       $stmt->bindParam(':id_estudiante',$id_estudiante);
+      $stmt->bindParam(':estado',$estado);
       $stmt->bindParam(':uploadedFileStr',$uploadedFileStr);
       if($stmt->execute())
       {

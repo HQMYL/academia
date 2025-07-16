@@ -75,7 +75,7 @@ while($row = $query->fetch_assoc()){
 ?>
 <tr>
 <td><img width="100";height="100"; src="assets/dashboard/dist/img/logo/<?= $row["img"]; ?>"></td>
-<td><button type="button" class="btn btn-info actualizar_logotipo" data-id="<?= $row['id'];?>" data-imagen="<?= $row['img'];?>">Editar</button></td>
+<td><button type="button" class="btn btn-info actualizar_logotipo" data-id="<?= $row['id'];?>" data-imagen="<?= $row['img'];?>"><i class="fas fa-edit"></i></button></td>
 </tr>
 <?php
 }

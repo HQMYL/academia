@@ -80,8 +80,8 @@ if (isset($_SESSION["usuario"]))
         ?>
 <tr>
 <td><?= $row["tipo_trabajo"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_tipo" data-id="<?= $row['id_tipo_trabajo'];?>" data-tipo="<?= $row['tipo_trabajo'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_tipo"  data-id="<?= $row['id_tipo_trabajo'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_tipo" data-id="<?= $row['id_tipo_trabajo'];?>" data-tipo="<?= $row['tipo_trabajo'];?>"><i class="fas fa-edit"></i></button></td>
+<td><button type="button" class="btn btn-danger delete_tipo"  data-id="<?= $row['id_tipo_trabajo'];?>"><i class="fas fa-trash"></i></button></td>
 </tr>
             <?php
                     }
@@ -123,6 +123,49 @@ $(".actualizar_tipo").on("click",function()
 
 });
 </script>
+<script>
+// Load content from external file
+$(document).ready(function() {
+$(".delete_tipo").on("click",function(){
 
+  var id = $(this).attr("data-id");
+  
+Swal.fire({
+    title: 'Desea eliminar este tipo de trabajo ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#bb414d', 
+    cancelButtonColor:  '#337AFF',
+    cancelButtonText: 'Cerrar',
+    confirmButtonText: 'Eliminar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+
+           type: "POST",
+           url: BASE_URL + 'eliminar-tipo-trabajo',
+           data: {"id":id}, // Adjuntar los campos del formulario enviado.
+           
+           success: function(response) {  
+             Swal.fire({
+  icon: 'success',
+  title: 'Eliminar tipo de trabajo',
+  text: 'Tipo de trabajo eliminado correctamente'
+  
+})
+             setTimeout("location.reload()", 3000);
+             
+
+            }
+
+
+         });
+    }
+  })
+ 
+});
+
+});
+</script>
 </body>
 </html>

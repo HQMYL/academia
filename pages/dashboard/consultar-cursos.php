@@ -2,47 +2,20 @@
 session_start();
 require_once __DIR__ . '../../../init.php'; // Carga rutas y configuración
 require_once ROOT_PATH . 'config/conexion.php';
+require_once ROOT_PATH . 'config/conexiones.php';    
 require_once ROOT_PATH .  'config/dbConfig.php';
 require_once ROOT_PATH .  'models/Pagination.class.php';
 $usuario = "";
 
-if (isset($_SESSION["usuario"])) {
+if (isset($_SESSION["usuario"])) 
+{
   $usuario = $_SESSION["usuario"];
-} else {
+} 
+else 
+{
   header('Location: ./');
 }
 
-
-$rol = "";
-$usuario_id = "";
-$foto_perfil = "";
-$sth = $con->prepare("SELECT * FROM users WHERE usuario = ?");
-$sth->bindParam(1, $usuario);
-$sth->execute();
-
-if ($sth->rowCount() > 0) {
-
-  foreach ($sth as $row) {
-
-    $rol = $row["id_tipo"];
-    $usuario_id = $row["id_usuario"];
-    $foto_perfil = $row["img"];
-  }
-}
-
-$logo = "";
-$sth = $con->prepare("SELECT * FROM logotipo");
-$sth->execute();
-
-if ($sth->rowCount() > 0) {
-
-  foreach ($sth as $row) {
-    $logo = $row["img"];
-  }
-}
-
-$anno = "";
-$anno = date("Y");
 require_once ROOT_PATH . 'include/dashboard/header.php';
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -55,7 +28,10 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
 
         </div><!-- /.col -->
         <div class="col-sm-6">
-
+         <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?= BASE_URL ?>admin">Inicio</a></li>
+              <li class="breadcrumb-item active">Consultar cursos</li>
+            </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -71,19 +47,21 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
 
           <!--<div class="row"> INICIO ROW -->
           <div class="card-body"><!-- INICIO CARD BODY -->
-            <button type="button" class="btn btn-info agregar_curso"><i class="fa fa-solid fa-plus"></i> Agregar curso</button>
+            
             <label for="inputEmail4"></label>
             <div class="row align-items-stretch mb-5">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="inputPassword4">Filtrar</label>
-                  <input type="text" class="form-control form-control-sm" name="keywords" id="keywords" onkeyup="searchFilter_curso();"><br>
-                  <input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_curso();">
-                  <a href="<?= BASE_URL ?>listado-cursos" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+                  <div class="d-filter">
+                    <input type="text" class="form-control form-control-sm" name="keywords" id="keywords_curso" onkeyup="searchFilter_curso();"><br>
+                    <!--<a value="Buscar" type="button" onclick="searchFilter_curso();"><i class="fas fa-search" ></i></a>-->
+                    
+                  </div>
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="inputPassword4">Filtrar por profesor asignado</label>
                   <select class="form-control form-control-sm" name="cmbusuario" id="cmbusuario" onchange="searchFilter_curso();">
@@ -99,7 +77,7 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
 
                       foreach ($sth as $row) { ?>
 
-                        <option value="<?= $row["id_usuario"]; ?>"><?= $row["nombre"]; ?></option>
+                        <option value="<?= $row["id_usuario"]; ?>"><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></option>
 
                     <?php }
                     }
@@ -109,9 +87,13 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
                 </div>
 
               </div>
+
+              <div class="col-md-4">
+                <a class="btn btn-info cot" href="<?= BASE_URL ?>listado-cursos"><i class="fa fa-fw fa-sync"></i></a>
+              </div>
             </div>
             <!-- ESPACIO PARA FILTROS -->
-
+            <button type="button" class="btn btn-info agregar_curso"><i class="fa fa-solid fa-plus"></i> Agregar curso</button>
             <div class="datalist-wrapper">
               <!-- Loading overlay -->
               <div class="loading-overlay" style="display: none;">
@@ -171,8 +153,8 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
                           <td><?= $row["duracion"]; ?></td>
                           <td><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></td>
 
-                          <td><button type="button" class="btn btn-info actualizar_curso" data-id="<?= $row['id_curso']; ?>" data-nombre="<?= $row['nombre_curso']; ?>" data-descripcion="<?= $row['descripcion_curso']; ?>" data-duracion="<?= $row['duracion']; ?>" data-asignado="<?= $row['profesor_asignado']; ?>">Editar</button></td>
-                          <td><button type="button" class="btn btn-danger delete_curso" data-id="<?= $row['id_curso']; ?>">Eliminar</button></td>
+                          <td><button type="button" class="btn btn-info actualizar_curso" data-id="<?= $row['id_curso']; ?>" data-nombre="<?= $row['nombre_curso']; ?>" data-descripcion="<?= $row['descripcion_curso']; ?>" data-duracion="<?= $row['duracion']; ?>" data-asignado="<?= $row['profesor_asignado']; ?>"><i class="fas fa-edit"></i></button></td>
+                          <td><button type="button" class="btn btn-danger delete_curso" data-id="<?= $row['id_curso']; ?>"><i class="fas fa-trash"></i> </button></td>
                         </tr>
                     <?php
                       }
@@ -218,4 +200,3 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
 <!-- guardar-curso -->
 
 <!-- ACtualizar -->
-

@@ -35,6 +35,11 @@ switch ($request) {
         require ROOT_PATH . 'pages/dashboard/consultar-cursos.php';
         break;
 
+        case 'comprobacion':
+        $title = "Comprobar usuario | AcademiaLink";
+        require ROOT_PATH . 'controllers/comprobacion.php';
+        break;
+
         case 'listado-materias':
         $title = "Listado de materias | AcademiaLink";
         require ROOT_PATH . 'pages/dashboard/listado-materias.php';
@@ -180,8 +185,84 @@ switch ($request) {
         break;
 
         case 'mis-cursos':
-        $title = "Listado de materias | AcademiaLink";
+        $title = "Mis cursos | AcademiaLink";
         require ROOT_PATH . 'pages/dashboard/mis-cursos.php';
+        break;
+
+        case 'agregar-archivo-solicitud':
+        $title = "Agregar archivo | AcademiaLink";
+        require ROOT_PATH . 'controllers/agregar-archivo-solicitud.php';
+        break;
+
+        case 'update-archivo-solicitud':
+        $title = "Actualizar archivo | AcademiaLink";
+        require ROOT_PATH . 'controllers/update-archivo-solicitud.php';
+        break;
+
+        case 'eliminar-archivo-solicitud':
+        $title = "Eliminar archivo | AcademiaLink";
+        require ROOT_PATH . 'controllers/eliminar-archivo-solicitud.php';
+        break;
+
+        case 'asignar-asesor':
+        $title = "Asignar asesor | AcademiaLink";
+        require ROOT_PATH . 'controllers/asignar-asesor.php';
+        break;
+
+        case 'GetSolicitudesEstudiante':
+        $title = "Filtro de solicitudes | AcademiaLink";
+        require ROOT_PATH . 'controllers/GetSolicitudesEstudiante.php';
+        break;
+
+        case 'enviar-cotizacion':
+        $title = "enviar cotización | AcademiaLink";
+        require ROOT_PATH . 'controllers/enviar-cotizacion.php';
+        break;
+        case 'cotizaciones':
+        $title = "Cotizaciones | AcademiaLink";
+        require ROOT_PATH . 'pages/dashboard/cotizaciones.php';
+        break;
+
+        case 'update-cotizacion':
+        $title = "Cotizaciones | AcademiaLink";
+        require ROOT_PATH . 'controllers/update-cotizacion.php';
+        break;
+
+        case 'cambiar-estado-notificacion':
+        $title = "Cotizaciones | AcademiaLink";
+        require ROOT_PATH . 'controllers/cambiar-estado-notificacion.php';
+        break;
+        case 'GetCotizaciones':
+        $title = "Cotizaciones | AcademiaLink";
+        require ROOT_PATH . 'controllers/GetCotizaciones.php';
+        break;
+
+        case 'GetCotizacionesEstudiante':
+        $title = "Cotizaciones | AcademiaLink";
+        require ROOT_PATH . 'controllers/GetCotizacionesEstudiante.php';
+        break;
+        case 'obtener-mensajes':
+        $title = "Cotizaciones | AcademiaLink";
+        require ROOT_PATH . 'controllers/obtener-mensajes.php';
+        break;
+
+        case 'registrar-mensaje':
+        $title = "Cotizaciones | AcademiaLink";
+        require ROOT_PATH . 'controllers/registrar-mensaje.php';
+        break;
+        case 'aceptar-propuesta':
+        $title = "Aceptar propuesta | AcademiaLink";
+        require ROOT_PATH . 'controllers/aceptar-propuesta.php';
+        break;
+
+        case 'rechazar-propuesta':
+        $title = "Rechazar propuesta | AcademiaLink";
+        require ROOT_PATH . 'controllers/rechazar-propuesta.php';
+        break;
+
+        case 'sala-chat':
+        $title = "Sala de chats | AcademiaLink";
+        require ROOT_PATH . 'pages/dashboard/sala-chat.php';
         break;
 
         

@@ -8,9 +8,12 @@ require_once ROOT_PATH .  'config/dbConfig.php';
 require_once ROOT_PATH .  'models/Pagination.class.php';
 $usuario = "";
  
-if (isset($_SESSION["usuario"])) {
+if (isset($_SESSION["usuario"])) 
+{
   $usuario = $_SESSION["usuario"];
-} else {
+} 
+else 
+{
   header('Location: ./');
 }
  
@@ -29,7 +32,10 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
             
           </div><!-- /.col -->
           <div class="col-sm-6">
-            
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?= BASE_URL ?>admin">Inicio</a></li>
+              <li class="breadcrumb-item active">Consultar usuarios</li>
+            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -45,19 +51,17 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
              
                 <!--<div class="row"> INICIO ROW -->
 <div class="card-body"><!-- INICIO CARD BODY -->
-<button type="button" class="btn btn-info agregar_usuario"><i class="fa fa-solid fa-plus"></i> Agregar usuario</button>
 <label for="inputEmail4"></label>
 <div class="row align-items-stretch mb-5">
-<div class="col-md-6">
+<div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Filtrar</label>
 <input type="text" class="form-control form-control-sm" name="keywords" id="keywords_usuario" onkeyup="searchFilter_usuario();"><br>
-<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_usuario();">
-<a href="<?= BASE_URL ?>consultar-usuarios" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+
 </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Filtrar por rol</label>
 <select class="form-control form-control-sm" name="cmbrol" id="cmbrol" onchange="searchFilter_usuario();">
@@ -83,9 +87,12 @@ foreach ($sth as $row )
 </div>
 
 </div>
+<div class="col-md-4">
+  <a href="<?= BASE_URL ?>consultar-usuarios" class="btn btn-info cot"><i class="fa fa-fw fa-sync"></i></a>
+</div>
 </div>
 <!-- ESPACIO PARA FILTROS -->
-
+<button type="button" class="btn btn-info agregar_usuario"><i class="fa fa-solid fa-plus"></i> Agregar usuario</button>
 <div class="datalist-wrapper">
 <!-- Loading overlay -->
 <div class="loading-overlay" style="display: none;"><div class="overlay-content">Cargando...</div></div>
@@ -145,8 +152,8 @@ while($row = $query->fetch_assoc()){
 
 <td><?= $row["rol"]; ?></td>
 
-<td><button type="button" class="btn btn-info actualizar_usuario" data-id="<?= $row['id_usuario'];?>" data-nombre="<?= $row['nombre'];?>" data-apellidos="<?= $row['apellidos'];?>" data-dir="<?= $row['direccion'];?>" data-correo="<?= $row['correo'];?>" data-tel="<?= $row['telefono'];?>" data-movil="<?= $row['movil'];?>" data-usuario="<?= $row['usuario'];?>" data-pass="<?= $row['pass'];?>" data-rol="<?= $row['id_tipo'];?>" data-estado="<?= $row['id_estado_usuario'];?>" data-img="<?= $row['img'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_usuario"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_usuario" data-id="<?= $row['id_usuario'];?>" data-nombre="<?= $row['nombre'];?>" data-apellidos="<?= $row['apellidos'];?>" data-dir="<?= $row['direccion'];?>" data-correo="<?= $row['correo'];?>" data-tel="<?= $row['telefono'];?>" data-movil="<?= $row['movil'];?>" data-usuario="<?= $row['usuario'];?>" data-pass="<?= $row['pass'];?>" data-rol="<?= $row['id_tipo'];?>" data-estado="<?= $row['id_estado_usuario'];?>" data-img="<?= $row['img'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_usuario"  data-id="<?= $row['id_usuario'];?>"><i class='fas fa-trash-alt'></i></button></td>
 </tr>
 <?php
 }

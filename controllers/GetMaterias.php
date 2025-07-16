@@ -80,8 +80,8 @@ if (isset($_SESSION["usuario"]))
         ?>
 <tr>
 <td><?= $row["materia"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_materia" data-id="<?= $row['id_materia'];?>" data-materia="<?= $row['materia'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_materia"  data-id="<?= $row['id_materia'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_materia" data-id="<?= $row['id_materia'];?>" data-materia="<?= $row['materia'];?>"><i class="fas fa-edit"></i></button></td>
+<td><button type="button" class="btn btn-danger delete_materia"  data-id="<?= $row['id_materia'];?>"><i class="fas fa-trash"></i></button></td>
 </tr>
             <?php
                     }
