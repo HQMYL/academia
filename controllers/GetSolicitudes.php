@@ -84,8 +84,8 @@ if (isset($_SESSION["usuario"]))
         'totalRows' => $rowCount,
         'perPage' => $limit,
     'currentPage' => $offset,
-    'contentDiv' => 'dataContainer',
-    'link_func' => 'searchFilter'
+    'contentDiv' => 'dataContainersolicitudes',
+    'link_func' => 'searchFilter_solicitudes'
     );
     $pagination =  new Pagination($pagConfig);
 
@@ -106,7 +106,7 @@ if (isset($_SESSION["usuario"]))
 <th>Tipo trabajo</th>
 <th>Materia relacionada</th>
 <th>Fecha límite</th>
-<th>Asignar/aceptar</th>
+<th>Asignado</th>
 <th>Editar</th>
 <th>Eliminar</th>
 </tr>
@@ -123,17 +123,17 @@ if (isset($_SESSION["usuario"]))
 <td><?= $row["materia"]; ?></td>
 <td><?= $row["fecha_limite"]; ?></td>
 <?php 
-if ($rol == "1" AND empty($row["id_asesor"])) 
+if (empty($row["id_asesor"])) 
 { ?>
-  <td><button type="button" class="btn btn-success asignar_solicitud"  data-id="<?= $row['id_solicitud'];?>">Asignar</button></td>
+  <td><button type="button" class="btn btn-warning">Sin asignar</button></td>
 <?php }
 
-if ($rol == "1" AND !empty($row["id_asesor"])) 
+if (!empty($row["id_asesor"])) 
 { ?>
-  <td>Asignado</td>
+  <td><button type="button" class="btn btn-success">Asignado</button></td>
 <?php }
 ?>
-<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Editar</button></td>
+<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Detalles</button></td>
 <td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
 </tr>
             <?php

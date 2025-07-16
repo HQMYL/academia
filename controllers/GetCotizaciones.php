@@ -22,29 +22,31 @@ if (isset($_SESSION["usuario"]))
 <?php
 
 
-
+#if ($rol == "Administrador") {  VALIDACIÓN SI EL USUARIO ES ADMINISTRADOR
   if(isset($_POST['page'])){
-
-  $baseURL = BASE_URL . 'GetCotizacionesEstudiante';
+    // Include pagination library file
+    
+  // Set some useful configuration
+  $baseURL = BASE_URL . 'GetCotizaciones';
   $offset = !empty($_POST['page'])?$_POST['page']:0;
   $limit = 5;
   
     
   // Set conditions for search
   
-    $whereSQL = 'WHERE a.estudiante_id = "'.$usuario_id.'"';
+    $whereSQL = 'WHERE a.asesor_id = "'.$usuario_id.'"';
     if(!empty($_POST['keywords']))
     {
         $whereSQL = $whereSQL." AND (a.estado_cotizacion LIKE '%".$_POST['keywords']."%' || a.tiempo_entrega LIKE '%".$_POST['keywords']."%' || a.costo_total LIKE '%".$_POST['keywords']."%' || a.detalles LIKE '%".$_POST['keywords']."%' || a.detalles_estudiante LIKE '%".$_POST['keywords']."%') ";
     }
 
-    if(!empty($_POST['asesor']))
+    if(!empty($_POST['estudiante']))
     {
-        $whereSQL = $whereSQL." AND a.asesor_id LIKE '%".$_POST['asesor']."%' ";
+        $whereSQL = $whereSQL." AND a.estudiante_id LIKE '%".$_POST['estudiante']."%' ";
     }
 
     
-    $query   = $db->query("SELECT COUNT(*) as rowNum FROM cotizaciones a LEFT JOIN users b ON a.asesor_id = b.id_usuario LEFT JOIN solicitudes c  ON a.id_propuesta = c.id_solicitud ".$whereSQL);
+    $query   = $db->query("SELECT COUNT(*) as rowNum FROM cotizaciones a LEFT JOIN users b ON a.estudiante_id = b.id_usuario LEFT JOIN solicitudes c ON a.id_propuesta = c.id_solicitud ".$whereSQL);
     $result  = $query->fetch_assoc();
     $rowCount= $result['rowNum'];
   
@@ -54,13 +56,13 @@ if (isset($_SESSION["usuario"]))
         'totalRows' => $rowCount,
         'perPage' => $limit,
     'currentPage' => $offset,
-    'contentDiv' => 'dataContainercotizacionesestudiante',
-    'link_func' => 'searchFilter_solicitudes_estudiante'
+    'contentDiv' => 'dataContainercotizaciones',
+    'link_func' => 'searchFilter_cotizaciones'
     );
     $pagination =  new Pagination($pagConfig);
 
     // Fetch records based on the offset and limit
-    $query = $db->query("SELECT * FROM cotizaciones a LEFT JOIN users b ON a.asesor_id = b.id_usuario LEFT JOIN solicitudes c  ON a.id_propuesta = c.id_solicitud $whereSQL ORDER BY a.id_cotizacion ASC LIMIT $offset,$limit");
+    $query = $db->query("SELECT * FROM cotizaciones a LEFT JOIN users b ON a.estudiante_id = b.id_usuario LEFT JOIN solicitudes c ON a.id_propuesta = c.id_solicitud $whereSQL ORDER BY a.id_cotizacion ASC LIMIT $offset,$limit");
 ?>
     <!-- Data list container -->
     

@@ -26,7 +26,10 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
             
           </div><!-- /.col -->
           <div class="col-sm-6">
-            
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?= BASE_URL ?>admin">Inicio</a></li>
+              <li class="breadcrumb-item active">Solicitudes</li>
+            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -48,13 +51,17 @@ if ($rol == "1" OR $rol == "2")
 { ?>
 <!--<button type="button" class="btn btn-info agregar_solicitud"><i class="fa fa-solid fa-plus"></i> Agregar solicitud</button>-->
 <label for="inputEmail4"></label>
+<div class="col-lg-12">
+ <a href="<?= BASE_URL ?>solicitudes" class="btn btn-info" style="float: right;"><i class="fa fa-fw fa-sync"></i></a><br> 
+</div>
 <div class="row align-items-stretch mb-5">
+  
 <div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Filtrar</label>
 <input type="text" class="form-control form-control-sm" name="keywords" id="keywords_solicitudes" onkeyup="searchFilter_solicitudes();"><br>
-<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_solicitudes();">
-<a href="<?= BASE_URL ?>solicitudes" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+<!--<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_solicitudes();">-->
+
 </div>
 </div>
 
@@ -235,7 +242,7 @@ if($query->num_rows > 0){?>
 <th>Tipo trabajo</th>
 <th>Materia relacionada</th>
 <th>Fecha límite</th>
-<th>Asignar/aceptar</th>
+<th>Asignado</th>
 <th>Editar</th>
 <th>Eliminar</th>
 
@@ -263,8 +270,8 @@ if (!empty($row["id_asesor"]))
   <td><button type="button" class="btn btn-success">Asignado</button></td>
 <?php }
 ?>
-<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Detalles</button></td>
-<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_usuario'];?>"><i class='fas fa-trash-alt'></i></button></td>
 
 </tr>
 <?php
@@ -287,9 +294,12 @@ echo '<tr><td colspan="6"><h2>No hay registros</h2></td></tr>';
 <?php 
 if ($rol == "3") 
 { ?>
-<button type="button" class="btn btn-info agregar_solicitud"><i class="fa fa-solid fa-plus"></i> Agregar solicitud</button>
+
 <label for="inputEmail4"></label>
 <div class="row align-items-stretch mb-5">
+  <div class="col-lg-12">
+    <a href="<?= BASE_URL ?>solicitudes" class="btn btn-info" style="float: right;"><i class="fa fa-fw fa-sync"></i></a>
+  </div>
 <div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Filtrar</label>
@@ -433,12 +443,10 @@ foreach ($sth as $row )
 
 <div class="col-md-4">
 
-<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_solicitudes_estudiante();">
-<a href="<?= BASE_URL ?>solicitudes" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
 </div>
 </div>
 <!-- ESPACIO PARA FILTROS -->
-
+<button type="button" class="btn btn-info agregar_solicitud"><i class="fa fa-solid fa-plus"></i> Agregar solicitud</button>
 <div class="datalist-wrapper">
   
 <!-- Loading overlay -->
@@ -477,7 +485,6 @@ if($query->num_rows > 0){?>
 <table class="table table-hover table-bordered">
 <thead>
 <tr>
-
 <th>Título</th>
 <th>Tipo trabajo</th>
 <th>Materia relacionada</th>
@@ -509,8 +516,8 @@ if (!empty($row["id_asesor"]))
   <td><button type="button" class="btn btn-success">Asignado</button></td>
 <?php }
 ?>
-<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Detalles</button></td>
-<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_solicitud'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_solicitud'];?>"><i class='fas fa-trash-alt'></i></button></td>
 </tr>
 <?php
 }

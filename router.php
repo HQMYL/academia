@@ -35,6 +35,11 @@ switch ($request) {
         require ROOT_PATH . 'pages/dashboard/consultar-cursos.php';
         break;
 
+        case 'comprobacion':
+        $title = "Comprobar usuario | AcademiaLink";
+        require ROOT_PATH . 'controllers/comprobacion.php';
+        break;
+
         case 'listado-materias':
         $title = "Listado de materias | AcademiaLink";
         require ROOT_PATH . 'pages/dashboard/listado-materias.php';
@@ -180,7 +185,7 @@ switch ($request) {
         break;
 
         case 'mis-cursos':
-        $title = "Listado de materias | AcademiaLink";
+        $title = "Mis cursos | AcademiaLink";
         require ROOT_PATH . 'pages/dashboard/mis-cursos.php';
         break;
 
@@ -205,7 +210,7 @@ switch ($request) {
         break;
 
         case 'GetSolicitudesEstudiante':
-        $title = "Asignar asesor | AcademiaLink";
+        $title = "Filtro de solicitudes | AcademiaLink";
         require ROOT_PATH . 'controllers/GetSolicitudesEstudiante.php';
         break;
 

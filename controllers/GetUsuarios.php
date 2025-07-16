@@ -89,8 +89,8 @@ if (isset($_SESSION["usuario"]))
 <td><?= $row["correo"]; ?></td>
 <td><?= $row["movil"]; ?></td>
 <td><?= $row["rol"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_usuario" data-id="<?= $row['id_usuario'];?>" data-nombre="<?= $row['nombre'];?>" data-apellidos="<?= $row['apellidos'];?>" data-dir="<?= $row['direccion'];?>" data-correo="<?= $row['correo'];?>" data-tel="<?= $row['telefono'];?>" data-movil="<?= $row['movil'];?>" data-usuario="<?= $row['usuario'];?>" data-pass="<?= $row['pass'];?>" data-rol="<?= $row['id_tipo'];?>" data-estado="<?= $row['id_estado_usuario'];?>" data-img="<?= $row['img'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_usuario"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_usuario" data-id="<?= $row['id_usuario'];?>" data-nombre="<?= $row['nombre'];?>" data-apellidos="<?= $row['apellidos'];?>" data-dir="<?= $row['direccion'];?>" data-correo="<?= $row['correo'];?>" data-tel="<?= $row['telefono'];?>" data-movil="<?= $row['movil'];?>" data-usuario="<?= $row['usuario'];?>" data-pass="<?= $row['pass'];?>" data-rol="<?= $row['id_tipo'];?>" data-estado="<?= $row['id_estado_usuario'];?>" data-img="<?= $row['img'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_usuario"  data-id="<?= $row['id_usuario'];?>"><i class='fas fa-trash-alt'></i></button></td>
 </tr>
             <?php
                     }

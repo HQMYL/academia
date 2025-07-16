@@ -26,7 +26,10 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
             
           </div><!-- /.col -->
           <div class="col-sm-6">
-            
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?= BASE_URL ?>admin">Inicio</a></li>
+              <li class="breadcrumb-item active">Cotizaciones</li>
+            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -89,9 +92,9 @@ foreach ($sth as $row )
 <div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4"></label>
-<br>
-<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_cotizaciones();">
-<a href="<?= BASE_URL ?>cotizaciones" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+
+
+<a href="<?= BASE_URL ?>cotizaciones" class="btn btn-primary cot"><i class="fa fa-fw fa-sync"></i></a>
 </div>
 </div>
 
@@ -111,8 +114,8 @@ $limit = 5;
 
 // Count of all records
 #$mar = "208";
-$whereSQL = "WHERE  asesor_id = '".$usuario_id."' ";
-$query   = $db->query("SELECT  COUNT(*) as rowNum FROM cotizaciones ".$whereSQL);
+$whereSQL = "WHERE  a.asesor_id = '".$usuario_id."' ";
+$query   = $db->query("SELECT  COUNT(*) as rowNum FROM cotizaciones a LEFT JOIN users b ON a.estudiante_id = b.id_usuario LEFT JOIN solicitudes c ON a.id_propuesta = c.id_solicitud ".$whereSQL);
 $result  = $query->fetch_assoc();
 $rowCount= $result['rowNum'];
 
@@ -131,7 +134,7 @@ $query = $db->query("SELECT * FROM cotizaciones a LEFT JOIN users b ON a.estudia
 
 
 if($query->num_rows > 0){?>
-<div class="table-responsive" id="dataContainersolicitudes">
+<div class="table-responsive" id="dataContainercotizaciones">
 <table class="table table-hover table-bordered">
 <thead>
 <tr>
@@ -152,8 +155,8 @@ while($row = $query->fetch_assoc()){
 <td><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></td>
 <td><?= $row["titulo"]; ?></td>
 <td><?= $row["estado_cotizacion"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_cotizacion" data-id="<?= $row['id_cotizacion'];?>" data-titulo="<?= $row['titulo'];?>" data-tiempo-entrega="<?= $row['tiempo_entrega'];?>" data-costo-total="<?= $row['costo_total'];?>" data-asesor_id="<?= $row['asesor_id'];?>" data-estudiante_id="<?= $row['estudiante_id'];?>" data-id_propuesta="<?= $row['id_propuesta'];?>" data-estado="<?= $row['estado_cotizacion'];?>" data-detalles="<?= $row['detalles'];?>" data-detalles_estudiante="<?= $row['detalles_estudiante'];?>">Detalles</button></td>
-<td><button type="button" class="btn btn-danger delete_cotizacion"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_cotizacion" data-id="<?= $row['id_cotizacion'];?>" data-titulo="<?= $row['titulo'];?>" data-tiempo-entrega="<?= $row['tiempo_entrega'];?>" data-costo-total="<?= $row['costo_total'];?>" data-asesor_id="<?= $row['asesor_id'];?>" data-estudiante_id="<?= $row['estudiante_id'];?>" data-id_propuesta="<?= $row['id_propuesta'];?>" data-estado="<?= $row['estado_cotizacion'];?>" data-detalles="<?= $row['detalles'];?>" data-detalles_estudiante="<?= $row['detalles_estudiante'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_cotizacion"  data-id="<?= $row['id_usuario'];?>"><i class='fas fa-trash-alt'></i></button></td>
 
 </tr>
 <?php
@@ -276,8 +279,8 @@ while($row = $query->fetch_assoc()){
 <tr>
 <td><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></td>
 <td><?= $row["titulo"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_cotizacion" data-id="<?= $row['id_cotizacion'];?>" data-titulo="<?= $row['titulo'];?>" data-tiempo-entrega="<?= $row['tiempo_entrega'];?>" data-costo-total="<?= $row['costo_total'];?>" data-asesor_id="<?= $row['asesor_id'];?>" data-estudiante_id="<?= $row['estudiante_id'];?>" data-id_propuesta="<?= $row['id_propuesta'];?>" data-estado="<?= $row['estado_cotizacion'];?>" data-detalles="<?= $row['detalles'];?>" data-detalles_estudiante="<?= $row['detalles_estudiante'];?>">Detalles</button></td>
-<td><button type="button" class="btn btn-danger delete_cotizacion"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_cotizacion" data-id="<?= $row['id_cotizacion'];?>" data-titulo="<?= $row['titulo'];?>" data-tiempo-entrega="<?= $row['tiempo_entrega'];?>" data-costo-total="<?= $row['costo_total'];?>" data-asesor_id="<?= $row['asesor_id'];?>" data-estudiante_id="<?= $row['estudiante_id'];?>" data-id_propuesta="<?= $row['id_propuesta'];?>" data-estado="<?= $row['estado_cotizacion'];?>" data-detalles="<?= $row['detalles'];?>" data-detalles_estudiante="<?= $row['detalles_estudiante'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_cotizacion"  data-id="<?= $row['id_usuario'];?>"><i class='fas fa-trash-alt'></i></button></td>
 </tr>
 <?php
 }

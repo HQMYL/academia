@@ -5,7 +5,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Sistema académico</strong>
+    <strong>Sistema academia</strong>
     
     <!-- <div class="float-right d-none d-sm-inline-block">
       
@@ -68,7 +68,7 @@ function searchFilter_usuario(page_num) {
        $.ajax({
 
            type: "POST",
-           url:"comprobacion.php",
+           url: BASE_URL + 'comprobacion',
            data: {"id":id}, // Adjuntar los campos del formulario enviado.
            
            success: function(response) {
@@ -1061,7 +1061,7 @@ y = 1;
 var maxField = 20; //Input fields increment limitation
 var addButton = $('.agregar_documento'); //Add button selector
 var wrapper = $('.field_wrapper'); //Input field wrapper
-var fieldHTML = '<div><input type="file" id="archivo'+y+'" name="archivo[]" /><a href="javascript:void(0);" class="remove_button"><img src="dist/img/iconos/remove-icon.png"/></a></div>'; //New input field html 
+var fieldHTML = '<div><input type="file" class="form-control form-control-sm" id="archivo'+y+'" name="archivo[]" /><a href="javascript:void(0);" class="remove_button"><img src="dist/img/iconos/remove-icon.png"/></a></div>'; //New input field html 
 //Initial field counter is 1
 
 //Once add button is clicked
@@ -1146,6 +1146,16 @@ changeYear: true,
         });
 
     $("#fecha_final").datepicker({
+          
+          dateFormat: 'yy/mm/dd'
+        });
+
+    $("#fecha_inicial_estudiante").datepicker({
+          
+          dateFormat: 'yy/mm/dd'
+        });
+
+    $("#fecha_final_estudiante").datepicker({
           
           dateFormat: 'yy/mm/dd'
         });
@@ -1335,14 +1345,14 @@ $(".actualizar_solicitud").on("click",function()
     if(ext != 'jpg' & ext != 'jpeg' & ext != 'gif' & ext != 'png' & ext != 'jfif')
     {
        
-      contenedor = '<tr><td><a href="assets/dashboard/dist/img/documentos/'+archivos[i]+'" download>'+archivos[i]+'</a></td><td><button type="button" class="btn btn-success actualizar_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'">Actualizar</button></td><td><button type="button" class="btn btn-danger delete_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'">Eliminar</button></td></tr>';
+      contenedor = '<tr><td><a href="assets/dashboard/dist/img/documentos/'+archivos[i]+'" download>'+archivos[i]+'</a></td><td><button type="button" class="btn btn-success actualizar_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'"><i class="fas fa-edit"></i></button></td><td><button type="button" class="btn btn-danger delete_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'"><i class="fas fa-trash-alt"></i></button></td></tr>';
      $("#relleno").append(contenedor);
 
     }
     else 
     {
 
-     contenedor = '<tr><td><img class="img-circle elevation-2" src="assets/dashboard/dist/img/documentos/'+archivos[i]+'" width="50";height="50";></td><td><button type="button" class="btn btn-success actualizar_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'">Actualizar</button></td><td><button type="button" class="btn btn-danger delete_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'">Eliminar</button></td></tr>';
+     contenedor = '<tr><td><img class="img-circle elevation-2" src="assets/dashboard/dist/img/documentos/'+archivos[i]+'" width="50";height="50";></td><td><button type="button" class="btn btn-success actualizar_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'"><i class="fas fa-edit"></i></button></td><td><button type="button" class="btn btn-danger delete_archivo" data-id="'+id+'" data-archivo="'+archivos[i]+'"><i class="fas fa-trash-alt"></i></button></td></tr>';
       $("#relleno").append(contenedor);
 
     }
@@ -1422,6 +1432,7 @@ Swal.fire({
 $('#myModalActualizarSolicitud').on('hidden.bs.modal', function () 
 {
   $("#relleno").html('');
+  $('#fupFormActualizarSolicitud')[0].reset();
 });
 
 
@@ -1679,7 +1690,9 @@ $(".actualizar_cotizacion").on("click",function()
   var detalles_estudiante = $(this).attr("data-detalles_estudiante");
   var usuario_id = $("#usuario_id").val();
   $(".aceptar_propuesta").attr("data-id",id_propuesta);
+  $(".aceptar_propuesta").attr("data-id-cotizacion",id);
   $(".rechazar_propuesta").attr("data-id",id_propuesta);
+  $(".rechazar_propuesta").attr("data-id-cotizacion",id);
   //numeros_contacto = numeros_contacto.split(',');
   $.ajax({
 
@@ -1717,6 +1730,7 @@ $(".actualizar_cotizacion").on("click",function()
     $("#usuario_id_cotizacion").val(estudiante_id);
     $(".enviar_mensaje").attr("data-emisor_id",asesor_id);
     $(".enviar_mensaje").attr("data-receptor_id",estudiante_id);
+    $(".enviar_mensaje").attr("data-id-propuesta",id_propuesta);
 
   
   }
@@ -1782,6 +1796,7 @@ Swal.fire({
 $(".aceptar_propuesta").on("click",function(){
 
   var id = $(this).attr("data-id");
+  var id_cotizacion = $(this).attr("data-id-cotizacion");
 
 Swal.fire({
     title: 'Desea aceptar esta propuesta ?',
@@ -1797,7 +1812,7 @@ Swal.fire({
 
            type: "POST",
            url: BASE_URL + 'aceptar-propuesta',
-           data: {"id":id}, // Adjuntar los campos del formulario enviado.
+           data: {"id":id,"id_cotizacion":id_cotizacion}, // Adjuntar los campos del formulario enviado.
            
            success: function(response) 
            {  
@@ -1825,6 +1840,7 @@ Swal.fire({
 $(".rechazar_propuesta").on("click",function(){
 
   var id = $(this).attr("data-id");
+  var id_cotizacion = $(this).attr("data-id-cotizacion");
   
 Swal.fire({
     title: 'Desea rechazar esta propuesta ?',
@@ -1840,7 +1856,7 @@ Swal.fire({
 
            type: "POST",
            url: BASE_URL + 'rechazar-propuesta',
-           data: {"id":id}, // Adjuntar los campos del formulario enviado.
+           data: {"id":id,"id_cotizacion":id_cotizacion}, // Adjuntar los campos del formulario enviado.
            
            success: function(response) 
            {  
@@ -1916,6 +1932,27 @@ function getSelectionStart(o) {
   $(".negrita").css("font-weight","bold");
 </script>
 
+<script>
+// Custom function to handle search and filter operations
+function searchFilter_cotizaciones(page_num) {
+    page_num = page_num?page_num:0;
+    var keywords = $('#keywords_cotizaciones').val();
+    var estudiante = $('#cmbestudiante').val();
+    
+    $.ajax({
+        type: 'POST',
+        url: BASE_URL + 'GetCotizaciones',
+        data:'page='+page_num+'&keywords='+keywords+'&estudiante='+estudiante,
+        beforeSend: function () {
+            $('.loading-overlay').show();
+        },
+        success: function (html) {
+            $('#dataContainercotizaciones').html(html);
+            $('.loading-overlay').fadeOut("slow");
+        }
+    });
+}
+</script>
 <script>
 // Custom function to handle search and filter operations
 function searchFilter_cotizaciones_estudiante(page_num) {

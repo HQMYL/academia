@@ -81,8 +81,8 @@ if (isset($_SESSION["usuario"]))
         ?>
 <tr>
 <td><?= $row["nivel_educativo"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_nivel" data-id="<?= $row['id_nivel'];?>" data-nivel="<?= $row['nivel_educativo'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_nivel" data-id="<?= $row['id_nivel'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_nivel" data-id="<?= $row['id_nivel'];?>" data-nivel="<?= $row['nivel_educativo'];?>"><i class="fas fa-edit"></i></button></td>
+<td><button type="button" class="btn btn-danger delete_nivel" data-id="<?= $row['id_nivel'];?>"><i class="fas fa-trash"></i></button></td>
 </tr>
             <?php
                     }

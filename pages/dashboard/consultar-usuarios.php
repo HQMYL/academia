@@ -8,9 +8,12 @@ require_once ROOT_PATH .  'config/dbConfig.php';
 require_once ROOT_PATH .  'models/Pagination.class.php';
 $usuario = "";
  
-if (isset($_SESSION["usuario"])) {
+if (isset($_SESSION["usuario"])) 
+{
   $usuario = $_SESSION["usuario"];
-} else {
+} 
+else 
+{
   header('Location: ./');
 }
  
@@ -85,7 +88,7 @@ foreach ($sth as $row )
 
 </div>
 <div class="col-md-4">
-  <a href="<?= BASE_URL ?>consultar-usuarios" class="btn btn-danger cot"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+  <a href="<?= BASE_URL ?>consultar-usuarios" class="btn btn-info cot"><i class="fa fa-fw fa-sync"></i></a>
 </div>
 </div>
 <!-- ESPACIO PARA FILTROS -->
@@ -149,8 +152,8 @@ while($row = $query->fetch_assoc()){
 
 <td><?= $row["rol"]; ?></td>
 
-<td><button type="button" class="btn btn-info actualizar_usuario" data-id="<?= $row['id_usuario'];?>" data-nombre="<?= $row['nombre'];?>" data-apellidos="<?= $row['apellidos'];?>" data-dir="<?= $row['direccion'];?>" data-correo="<?= $row['correo'];?>" data-tel="<?= $row['telefono'];?>" data-movil="<?= $row['movil'];?>" data-usuario="<?= $row['usuario'];?>" data-pass="<?= $row['pass'];?>" data-rol="<?= $row['id_tipo'];?>" data-estado="<?= $row['id_estado_usuario'];?>" data-img="<?= $row['img'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_usuario"  data-id="<?= $row['id_usuario'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_usuario" data-id="<?= $row['id_usuario'];?>" data-nombre="<?= $row['nombre'];?>" data-apellidos="<?= $row['apellidos'];?>" data-dir="<?= $row['direccion'];?>" data-correo="<?= $row['correo'];?>" data-tel="<?= $row['telefono'];?>" data-movil="<?= $row['movil'];?>" data-usuario="<?= $row['usuario'];?>" data-pass="<?= $row['pass'];?>" data-rol="<?= $row['id_tipo'];?>" data-estado="<?= $row['id_estado_usuario'];?>" data-img="<?= $row['img'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_usuario"  data-id="<?= $row['id_usuario'];?>"><i class='fas fa-trash-alt'></i></button></td>
 </tr>
 <?php
 }

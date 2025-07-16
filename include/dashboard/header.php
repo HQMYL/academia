@@ -14,7 +14,12 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/jquery-ui/jquery-ui.css">
-  <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/dist/css//nueva.css">
+
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/dashboard/dist/css/nueva.css">
+
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style-dasboard.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/root.css">
+
   
 </head>
 
@@ -27,12 +32,7 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?= BASE_URL ?>admin" class="nav-link">Inicio</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link"></a>
-      </li>
+      
     </ul>
 
     <!-- Right navbar links -->
@@ -71,7 +71,7 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <?php 
             
-$sth = $con->prepare("SELECT * FROM mensajes a LEFT JOIN users b ON a.emisor_id = b.id_usuario WHERE a.receptor_id = ?");
+$sth = $con->prepare("SELECT * FROM mensajes a LEFT JOIN users b ON a.emisor_id = b.id_usuario LEFT JOIN solicitudes c ON a.id_propuesta = c.id_solicitud WHERE a.receptor_id = ?");
 $sth->bindParam(1, $usuario_id);
 $sth->execute();
 
@@ -90,8 +90,8 @@ foreach ($sth as $row )
                   <?= $row["nombre"]; ?> <?= $row["apellidos"]; ?>
                   <span class="float-right text-sm text-danger"><i class="fas fa-solid fa-trash"></i></span>
                 </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                <p class="text-sm"><?= $row["titulo"]; ?></p>
+                <!--<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>-->
               </div>
             </div>
             <!-- Message End -->
@@ -101,7 +101,7 @@ foreach ($sth as $row )
           ?>
           
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+          <a href="<?= BASE_URL ?>sala-chat" class="dropdown-item dropdown-footer">Ver todos</a>
         </div>
       </li>
       <?php }
@@ -164,6 +164,7 @@ foreach ($sth as $row )
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <!-- <i class="far fa-bell"></i> -->
+
           Bienvenido
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">

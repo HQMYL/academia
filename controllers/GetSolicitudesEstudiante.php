@@ -27,7 +27,7 @@ if (isset($_SESSION["usuario"]))
     // Include pagination library file
     
   // Set some useful configuration
-  $baseURL = 'GetSolicitudesEstudiante.php';
+  $baseURL = BASE_URL . 'GetSolicitudesEstudiante';
   $offset = !empty($_POST['page'])?$_POST['page']:0;
   $limit = 5;
   
@@ -131,8 +131,8 @@ if (!empty($row["id_asesor"]))
   <td><button type="button" class="btn btn-success">Asignado</button></td>
 <?php }
 ?>
-<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>">Detalles</button></td>
-<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_solicitud'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_solicitud" data-id="<?= $row['id_solicitud'];?>" data-titulo="<?= $row['titulo'];?>" data-nivel="<?= $row['nivel_educativo'];?>" data-tipo_trabajo="<?= $row['tipo_trabajo_id'];?>" data-materia="<?= $row['materia_relacionada'];?>" data-fecha="<?= $row['fecha_limite'];?>" data-descripcion="<?= $row['descripcion'];?>" data-id_asesor="<?= $row['id_asesor'];?>" data-id_estudiante="<?= $row['id_estudiante'];?>" data-archivos="<?= $row['archivos'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_solicitud"  data-id="<?= $row['id_solicitud'];?>"><i class='fas fa-trash-alt'></i></button></td>
 </tr>
             <?php
                     }

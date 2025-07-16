@@ -46,22 +46,25 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
              
                 <!--<div class="row"> INICIO ROW -->
 <div class="card-body"><!-- INICIO CARD BODY -->
-
-<button type="button" class="btn btn-info agregar_nivel"><i class="fa fa-solid fa-plus"></i> Agregar nivel educativo</button>
 <label for="inputEmail4"></label>
 <div class="row align-items-stretch mb-5">
-<div class="col-md-6">
+<div class="col-md-4">
 <div class="form-group">
 <label for="inputPassword4">Filtrar</label>
 <input type="text" class="form-control form-control-sm" name="keywords" id="keywords_niveles" onkeyup="searchFilter_niveles();"><br>
-<input type="button" class="btn btn-primary" value="Buscar" onclick="searchFilter_niveles();">
-<a href="<?= BASE_URL ?>niveles-educativos" class="btn btn-danger"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
 </div>
 </div>
 
+<div class="col-md-4">
+<div class="form-group">
+<label for=""></label>
+
+<a href="<?= BASE_URL ?>niveles-educativos" class="btn btn-info cot"><i class="fa fa-fw fa-sync"></i></a>
+</div>
+</div>
 </div>
 <!-- ESPACIO PARA FILTROS -->
-
+<button type="button" class="btn btn-info agregar_nivel"><i class="fa fa-solid fa-plus"></i> Agregar nivel educativo</button>
 <div class="datalist-wrapper">
 <!-- Loading overlay -->
 <div class="loading-overlay" style="display: none;"><div class="overlay-content">Cargando...</div></div>
@@ -111,8 +114,8 @@ while($row = $query->fetch_assoc()){
 ?>
 <tr>
 <td><?= $row["nivel_educativo"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar_nivel" data-id="<?= $row['id_nivel'];?>" data-nivel="<?= $row['nivel_educativo'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete_nivel" data-id="<?= $row['id_nivel'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_nivel" data-id="<?= $row['id_nivel'];?>" data-nivel="<?= $row['nivel_educativo'];?>"><i class="fas fa-edit"></i></button></td>
+<td><button type="button" class="btn btn-danger delete_nivel" data-id="<?= $row['id_nivel'];?>"><i class="fas fa-trash"></i></button></td>
 </tr>
 <?php
 }

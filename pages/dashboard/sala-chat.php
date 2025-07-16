@@ -15,22 +15,22 @@ if (isset($_SESSION["usuario"])) {
 
 require_once ROOT_PATH . 'include/dashboard/header.php';
 
-$emisor_id = "";
+$_SESSION['emisor_id'] = "";
 if (isset($_GET['emisor_id'])) 
 {
-  $emisor_id = $_GET['emisor_id'];
+  $_SESSION['emisor_id'] = $_GET['emisor_id'];
 }
 
-$receptor_id = "";
+$_SESSION['receptor_id'] = "";
 if (isset($_GET['receptor_id'])) 
 {
-  $receptor_id = $_GET['receptor_id'];
+  $_SESSION['receptor_id'] = $_GET['receptor_id'];
 }
 
-$id_propuesta = "";
+$_SESSION['id_propuesta'] = "";
 if (isset($_GET['id_propuesta'])) 
 {
-  $id_propuesta = $_GET['id_propuesta'];
+  $_SESSION['id_propuesta'] = $_GET['id_propuesta'];
 }
 ?>
 
@@ -92,9 +92,9 @@ foreach ($sth as $row )
 
 </div>
 
-<input type="text" class="form-control form-control-sm" name="emisor_id_chat" id="emisor_id_chat" value="<?= $emisor_id; ?>">
-  <input type="text" class="form-control form-control-sm" name="receptor_id_chat" id="receptor_id_chat" value="<?= $receptor_id; ?>">
-  <input type="text" class="form-control form-control-sm" name="id_propuesta" id="id_propuesta" value="<?= $id_propuesta; ?>">
+<input type="text" class="form-control form-control-sm" name="emisor_id_chat" id="emisor_id_chat" value="<?= $_SESSION['emisor_id']; ?>">
+  <input type="text" class="form-control form-control-sm" name="receptor_id_chat" id="receptor_id_chat" value="<?= $_SESSION['receptor_id']; ?>">
+  <input type="text" class="form-control form-control-sm" name="id_propuesta" id="id_propuesta" value="<?= $_SESSION['id_propuesta']; ?>">
   
     
 

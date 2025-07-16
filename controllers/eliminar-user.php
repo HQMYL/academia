@@ -23,7 +23,7 @@ foreach ($sth as $row )
 #$imagen = $imagi[0];
 }
 
-unlink("assets/css/dashboard/dist/img/users/".$imagen);
+unlink("assets/dashboard/dist/img/users/".$imagen);
 
 
 

@@ -80,8 +80,8 @@ if (isset($_SESSION["usuario"]))
 <td><?= $row["descripcion_curso"]; ?></td>
 <td><?= $row["duracion"]; ?></td>
 <td><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></td>
-<td><button type="button" class="btn btn-info actualizar" data-id="<?= $row['id_curso'];?>" data-nombre="<?= $row['nombre_curso'];?>" data-descripcion="<?= $row['descripcion_curso'];?>" data-duracion="<?= $row['duracion'];?>" data-asignado="<?= $row['profesor_asignado'];?>">Editar</button></td>
-<td><button type="button" class="btn btn-danger delete"  data-id="<?= $row['id_curso'];?>">Eliminar</button></td>
+<td><button type="button" class="btn btn-info actualizar_curso" data-id="<?= $row['id_curso'];?>" data-nombre="<?= $row['nombre_curso'];?>" data-descripcion="<?= $row['descripcion_curso'];?>" data-duracion="<?= $row['duracion'];?>" data-asignado="<?= $row['profesor_asignado'];?>"><i class='fas fa-edit'></i></button></td>
+<td><button type="button" class="btn btn-danger delete_curso"  data-id="<?= $row['id_curso'];?>"><i class='fas fa-trash-alt'></i></button></td>
 </tr>
             <?php
                     }
