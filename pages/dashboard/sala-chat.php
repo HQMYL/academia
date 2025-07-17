@@ -32,6 +32,9 @@ if (isset($_GET['id_propuesta']))
 {
   $_SESSION['id_propuesta'] = $_GET['id_propuesta'];
 }
+
+#var_dump($_SESSION['emisor_id']);
+#var_dump($_SESSION['receptor_id']);
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -41,10 +44,13 @@ if (isset($_GET['id_propuesta']))
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            
+            <h4 class="px-4">Chats</h4>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?= BASE_URL ?>admin">Inicio</a></li>
+              <li class="breadcrumb-item active">chats</li>
+            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -63,7 +69,7 @@ if (isset($_GET['id_propuesta']))
 <div class="col-lg-12">
  <div class="col-lg-4">
   <?php 
-  $sth = $con->prepare("SELECT * FROM mensajes a LEFT JOIN users b ON a.emisor_id = b.id_usuario OR a.receptor_id = b.id_usuario LEFT JOIN solicitudes c ON a.id_propuesta = c.id_solicitud WHERE emisor_id = ? OR receptor_id = ?");
+  /*$sth = $con->prepare("SELECT * FROM mensajes a LEFT JOIN users b ON a.emisor_id = b.id_usuario OR a.receptor_id = b.id_usuario LEFT JOIN solicitudes c ON a.id_propuesta = c.id_solicitud WHERE emisor_id = ? OR receptor_id = ?");
 $sth->bindParam(1, $usuario_id);
 $sth->bindParam(2, $usuario_id);
 
@@ -76,7 +82,7 @@ foreach ($sth as $row )
    <a href="#"><?= $row["nombre"]; ?> <?= $row["apellidos"]; ?></a><br>
    
 <?php }
-}
+}*/
 
   ?>
 </div>
@@ -88,7 +94,7 @@ foreach ($sth as $row )
 <div class="row">
 <div class="col-md-4">
 <label>Mensaje</label>
-<input type="text" class="form-control form-control-sm" name="mensaje" placeholder="Escribe tu mensaje">
+<input type="text" class="form-control form-control-sm" name="mensaje" id="message" placeholder="Escribe tu mensaje">
 
 </div>
 
