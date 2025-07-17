@@ -47,7 +47,7 @@ $estado = "";
 $estado = "No";
 
 
-      $stmt = $DB_con->prepare('INSERT INTO mensajes(emisor_id,receptor_id,fecha,mensaje,id_propuesta,estado) VALUES(:emisor_id,:receptor_id,:fecha,:mensaje,:id_propuesta,:estado)');
+      $stmt = $DB_con->prepare('INSERT INTO mensajes(incoming_msg_id,outgoing_msg_id,fecha,mensaje,id_propuesta,estado) VALUES(:emisor_id,:receptor_id,:fecha,:mensaje,:id_propuesta,:estado)');
       $stmt->bindParam(':emisor_id',$emisor_id);
       $stmt->bindParam(':receptor_id',$receptor_id);
       $stmt->bindParam(':fecha',$fecha);
