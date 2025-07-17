@@ -2,12 +2,25 @@
 session_start();
 require_once __DIR__ . '/../init.php';  // Carga rutas y configuración
 require_once ROOT_PATH .  'config/conexiones.php';
+require_once ROOT_PATH .  'config/dbconfig2.php';
 require_once ROOT_PATH .  'models/mpdf/autoload.php';
 
-$id = "";
-if (isset($_REQUEST["id"])) 
+$id_profesor = "";
+if (isset($_REQUEST["id_profesor"])) 
 {
-  $id = $_REQUEST["id"];
+  $id_profesor = $_REQUEST["id_profesor"];
+}
+
+$id_estudiante = "";
+if (isset($_REQUEST["id_estudiante"])) 
+{
+  $id_estudiante = $_REQUEST["id_estudiante"];
+}
+
+$id_propuesta = "";
+if (isset($_REQUEST["id_propuesta"])) 
+{
+  $id_propuesta = $_REQUEST["id_propuesta"];
 }
 
 $imgFile = $_FILES['archivo']['name'];
@@ -51,21 +64,22 @@ $imgFile = $_FILES['archivo']['name'];
     if (!isset($errMSG)) 
     { #SI NO HUBO ERROR EN LA SUBIDA DEL ARCHIVO
       
-     $stmt = $DB_con->prepare('INSERT INTO avances_profesor(id_profesor,id_trabajo,archivo) VALUES(:id_profesor,id_trabajo,userpic)');
+     $stmt = $DB_con->prepare('INSERT INTO avances_profesor(id_profesor,id_estudiante,id_trabajo,archivo) VALUES(:id_profesor,:id_estudiante,:id_propuesta,:userpic)');
       $stmt->bindParam(':id_profesor',$id_profesor);
-      $stmt->bindParam(':id_trabajo',$id_trabajo);
+      $stmt->bindParam(':id_estudiante',$id_estudiante);
+      $stmt->bindParam(':id_propuesta',$id_propuesta);
       $stmt->bindParam(':userpic',$userpic);
       if($stmt->execute())
       {
         $response['status'] = 1;
-    $response['message'] = $exito;
+    $response['message'] = "El avance ha sido registrado correctamente";
     echo  json_encode($response);
         
       }
       else
       {
         $response['status'] = 0;
-    $response['message'] = $fallo;
+    $response['message'] = "Hubo un error,inténtalo nuevamente";
     echo  json_encode($response);
       }
 
@@ -77,23 +91,25 @@ $imgFile = $_FILES['archivo']['name'];
 
 
 // Cargar el archivo PDF existente
-$pagecount = $mpdf->SetSourceFile('ruta/al/archivo.pdf');
+$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L']);
+$pagecount = $mpdf->SetSourceFile($carpeta.$userpic);
 
 // Importar todas las páginas
 for ($i = 1; $i <= $pagecount; $i++) {
     $tplId = $mpdf->ImportPage($i);
     $size = $mpdf->getTemplateSize($tplId);
     $mpdf->addPage('P', '', '', '', '',
-        $size['w'], $size['h'], 0, 0, 0, 0);
+        $size['width'], $size['height'], 0, 0, 0, 0);
+    #$mpdf->addPage();
     $mpdf->UseTemplate($tplId);
 
     // Configurar la marca de agua
-    $mpdf->SetWatermarkText('Borrador'); // Texto de la marca de agua
-    $mpdf->watermarkTextAlpha = 0.1; // Ajustar la transparencia (0.1 = 10%)
+    $mpdf->SetWatermarkText('TEXTO DE PRUEBA'); // Texto de la marca de agua
+    $mpdf->watermarkTextAlpha = 0.5; // Ajustar la transparencia (0.1 = 10%)
     $mpdf->showWatermarkText = true; // Mostrar la marca de agua
     $mpdf->watermarkImageAlpha = 0.5;
 }
 // ÚLTIMA SECCIÓN
-$mpdf->Output('uploads/compras/'.$comprador.'.pdf',\Mpdf\Output\Destination::FILE);
+$mpdf->Output($carpeta.$userpic.'.pdf',\Mpdf\Output\Destination::FILE);
 #$mpdf->Output($comprador.'.pdf','I');
 ?>
