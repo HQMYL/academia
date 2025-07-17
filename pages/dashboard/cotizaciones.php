@@ -23,7 +23,7 @@ require_once ROOT_PATH . 'include/dashboard/header.php';
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            
+            <h4 class="px-4">Cotizaciones</h4>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -54,7 +54,7 @@ if ($rol == "2")
 <div class="row align-items-stretch mb-5">
 <div class="col-md-4">
 <div class="form-group">
-<label for="inputPassword4">Filtrar</label>
+<label class="d-label" for="inputPassword4">Filtrar</label>
 <input type="text" class="form-control form-control-sm" name="keywords" id="keywords_cotizaciones" onkeyup="searchFilter_cotizaciones();"><br>
 
 </div>
@@ -62,7 +62,7 @@ if ($rol == "2")
 
 <div class="col-md-4">
 <div class="form-group">
-<label for="inputPassword4">Filtrar por estudiante</label>
+<label class="d-label" for="inputPassword4">Filtrar por estudiante</label>
 <select class="form-control form-control-sm" name="cmbestudiante" id="cmbestudiante" onchange="searchFilter_cotizaciones();">
                   <option value="">Seleccione...</option>
                   <?php
@@ -91,7 +91,7 @@ foreach ($sth as $row )
 
 <div class="col-md-4">
 <div class="form-group">
-<label for="inputPassword4"></label>
+<label class="d-label" for="inputPassword4"></label>
 
 
 <a href="<?= BASE_URL ?>cotizaciones" class="btn btn-primary cot"><i class="fa fa-fw fa-sync"></i></a>
@@ -221,7 +221,7 @@ foreach ($sth as $row )
 </div>
 
 <div class="col-md-4">
-<a href="<?= BASE_URL ?>cotizaciones" class="btn btn-danger cot"><i class="fa fa-fw fa-sync"></i>Limpiar</a>
+<a href="<?= BASE_URL ?>cotizaciones" class="btn btn-info cot"><i class="fa fa-fw fa-sync"></i></a>
 </div>
 </div>
 <!-- ESPACIO PARA FILTROS -->
