@@ -1094,6 +1094,7 @@ $('.pdf').on('change', function(){
   }
 });
 
+
 });
 
 //Once remove button is clicked
@@ -1435,6 +1436,12 @@ $('#myModalActualizarSolicitud').on('hidden.bs.modal', function ()
   $('#fupFormActualizarSolicitud')[0].reset();
 });
 
+$('#myModalActualizarCotizacion').on('hidden.bs.modal', function () 
+{
+  $("#relleno_avance").html('');
+  
+});
+
 
 });
 </script>
@@ -1677,6 +1684,7 @@ $(document).ready(function() {
 $(".actualizar_cotizacion").on("click",function()
  {
   $(".enviar_mensaje").css("display","none");
+  $(".generar_avance").attr("display","none");
 
   var id = $(this).attr("data-id");
   var titulo = $(this).attr("data-titulo");
@@ -1693,6 +1701,8 @@ $(".actualizar_cotizacion").on("click",function()
   $(".aceptar_propuesta").attr("data-id-cotizacion",id);
   $(".rechazar_propuesta").attr("data-id",id_propuesta);
   $(".rechazar_propuesta").attr("data-id-cotizacion",id);
+  var archivos = "";
+ var archivo = "";
   //numeros_contacto = numeros_contacto.split(',');
   $.ajax({
 
@@ -1706,6 +1716,38 @@ $(".actualizar_cotizacion").on("click",function()
            }
 
          });
+
+  $.ajax({
+  url: BASE_URL + 'obtener-avance',
+  type: "POST", // O "POST" si envías datos
+  data: {"id_asesor":asesor_id,"id_estudiante":estudiante_id,"id_propuesta":id_propuesta},
+  dataType: "json",
+  success: function(response) {
+    // 'response' contiene los datos devueltos por el servidor
+    //console.log("Datos recibidos:", response);
+    // Aquí puedes acceder a los valores específicos
+    var archivos = response.archivo;
+    $("#archivos_avance").val(archivos);
+    archivo = $("#archivos_avance").val();
+    archivo = archivo.split(',');
+  var contenedor = "";
+  
+  for (let i = 0; i < archivo.length; i++)
+   {
+    
+      contenedor = '<tr><td><a href="assets/dashboard/dist/avances/'+archivo[i]+'">'+archivo[i]+'</a></td><td><button type="button" class="btn btn-success actualizar_avance" data-id="'+id+'" data-archivo="'+archivos[i]+'"><i class="fas fa-edit"></i></button></td><td><button type="button" class="btn btn-danger delete_avance" data-id="'+id+'" data-archivo="'+archivos[i]+'"><i class="fas fa-trash-alt"></i></button></td></tr>';
+     $("#relleno_avance").append(contenedor);
+ 
+  }
+  
+    
+  },
+  error: function(xhr, status, error) 
+  {
+    console.error("Error en la petición AJAX:", status, error);
+  }
+});
+  
   
   $("#id_cotizacion_solicitud2").val(id);
   $("#titulo_cotizacion").html(titulo);
@@ -1719,10 +1761,12 @@ $(".actualizar_cotizacion").on("click",function()
   if (estado == "Aprobado") 
   {
     $(".enviar_mensaje").css("display","block");
+    $(".generar_avance").css("display","block");
   }
   else 
   {
     $(".enviar_mensaje").css("display","none");
+    $(".generar_avance").css("display","none");
   }
   if (usuario_id == asesor_id) 
   {
@@ -1744,6 +1788,9 @@ $(".actualizar_cotizacion").on("click",function()
   }
   
   $(".enviar_mensaje").attr("data-id_propuesta",id_propuesta);
+  $(".generar_avance").attr("data-id_propuesta",id_propuesta);
+  $(".generar_avance").attr("data-id_profesor",asesor_id);
+  $(".generar_avance").attr("data-id_estudiante",estudiante_id);
 
   $("#propuesta_id_cotizacion").val(id_propuesta);
   
@@ -1979,7 +2026,7 @@ function searchFilter_cotizaciones_estudiante(page_num) {
 <script>
         $(document).ready(function() {
             // Fetch messages every 3 seconds
-            setInterval(fetchMessages, 3000);
+            setInterval(fetchMessages, 1000);
             let chatDiv = document.getElementById('chatBox');
             function scrollChatToBottom(chatDiv) 
             {
@@ -2017,19 +2064,22 @@ function searchFilter_cotizaciones_estudiante(page_num) {
       cache: false,
       processData:false,
       beforeSend: function(){
-        $('.submitBtnmensaje').attr("disabled","disabled");
-        $('#fupFormMensaje').css("opacity",".5");
+        //$('.submitBtnmensaje').attr("disabled","disabled");
+        //$('#fupFormMensaje').css("opacity",".5");
 
       },
       success: function(response)
       {
-        $('#fupFormMensaje')[0].reset();
-        $('#fupFormMensaje').css("opacity","");
-        $(".submitBtnmensaje").removeAttr("disabled");
+
+        //$('#fupFormMensaje').css("opacity","");
+        //$(".submitBtnmensaje").removeAttr("disabled");
         fetchMessages();
         scrollChatToBottom(chatDiv);
       }
+
     });
+    $('#fupFormMensaje')[0].reset();
+        $('#message').val('');
   });
 
 
@@ -2064,6 +2114,77 @@ links.forEach(link => {
     link.classList.add('active');
   }
 });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function() 
+      {
+        $(".generar_avance").on("click",function()
+        {
+          var id_propuesta = $(this).attr("data-id_propuesta");
+          var id_profesor = $(this).attr("data-id_profesor");
+          var id_estudiante = $(this).attr("data-id_estudiante");
+          $("#id_propuesta_avance").val(id_propuesta);
+          $("#id_profesor_avance").val(id_profesor);
+          $("#id_estudiante_avance").val(id_estudiante);
+
+          $("#myModalAgregarAvance").modal({show:true});
+        });
+
+        $('.solo-pdf').on('change', function(){
+  var fileList = $(this)[0].files || [] //registra todos los archivos
+  for (file of fileList){ //una iteración de toda la vida
+    ext=file.name.split('.').pop()
+    //console.log('>ARCHIVO: ', file.name)
+    if(ext != 'pdf')
+    {
+       $( this ).val('');
+        Swal.fire({
+  icon: 'warning',
+  title: 'Tipo de archivo no permitido',
+  text: 'Solo se permiten archivos PDF'
+  
+})
+
+    }
+    /*else{
+        alert('>>TIPO DE ARCHIVO PDF CORRECTO');
+    }*/
+  }
+});
+
+        $("#fupFormAgregarAvance").submit(function(e){
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: BASE_URL + 'agregar-avance',
+      data: new FormData(this),
+      dataType: 'json',
+      contentType: false,
+      cache: false,
+      processData:false,
+      beforeSend: function(){
+        $('.submitBtnagregaravance').attr("disabled","disabled");
+        $('#fupFormAgregarAvance').css("opacity",".5");
+
+      },
+      success: function(response){
+        $('.statusMsgagregaravance').html('');
+        if(response.status == 1){
+          $('#fupFormAgregarAvance')[0].reset();
+          //$('.statusMsg').css("background-color","green");
+          $('.statusMsgagregaravance').html('<p class="alert alert-primary">'+response.message+'</p>');
+        }else{
+          $('.statusMsgagregaravance').html('<p class="alert alert-danger">'+response.message+'</p>');
+        }
+        $('#fupFormAgregarAvance').css("opacity","");
+        $(".submitBtnagregaravance").removeAttr("disabled");
+        setTimeout("location.reload()", 3000);
+      }
+    });
+  });
+
+
+     });
     </script>
 </body>
 </html>
