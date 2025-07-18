@@ -57,10 +57,11 @@ foreach ($sth as $row )
 $total_mensajes = "";
 $leido = "";
 $leido = "No";
-$sth = $con->prepare("SELECT COUNT(*) as total FROM mensajes WHERE emisor_id = ? OR receptor_id = ? AND estado = ?");
+$sth = $con->prepare("SELECT COUNT(*) as total FROM mensajes WHERE
+ (outgoing_msg_id OR incoming_msg_id = ?) AND estado = ?
+  GROUP BY id_propuesta ");
 $sth->bindParam(1, $usuario_id);
-$sth->bindParam(2, $usuario_id);
-$sth->bindParam(3, $leido);
+$sth->bindParam(2, $leido);
 $sth->execute();
 
 if ($sth->rowCount() > 0) {
