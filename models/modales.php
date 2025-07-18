@@ -5,10 +5,10 @@ require_once ROOT_PATH .  'config/conexiones.php';
 ?>
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarUsuario" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg m-dialog">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Agregar usuario</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -16,52 +16,55 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormAgregarUsuario">
           <div class="row">
             <div class="col-md-6">
-              <label>Nombre</label>
+              <label class="d-label">Nombre</label>
+
               <input type="text" class="form-control form-control-sm" name="nombre" placeholder="Nombre">
+              <input type="hidden" class="form-control form-control-sm" name="usuario_id" id="usuario_id" value="<?= $usuario_id; ?>">
+              <input type="hidden" class="form-control form-control-sm" name="rol" id="rol_usuario" value="<?= $rol; ?>">
             </div>
 
             <div class="col-md-6">
-              <label>Apellidos</label>
-              <input type="text" class="form-control form-control-sm" name="apellidos" placeholder="Apellidos">
+              <label class="d-label">Apellidos</label>
+              <input type="text" class="form-control form-control-sm" name="apellidos" placeholder="Apellidos"><br>
             </div>
 
             <div class="col-md-6">
-              <label>Dirección</label>
+              <label class="d-label">Dirección</label>
               <input type="text" class="form-control form-control-sm" name="dir" placeholder="Dirección">
             </div>
 
             <div class="col-md-6">
-              <label>Correo</label>
-              <input type="text" class="form-control form-control-sm" name="correo" placeholder="Correo">
+              <label class="d-label">Correo</label>
+              <input type="text" class="form-control form-control-sm" name="correo" placeholder="Correo"><br>
             </div>
 
             <div class="col-md-6">
-              <label>Teléfono</label>
+              <label class="d-label">Teléfono</label>
 
               <input type="text" class="form-control form-control-sm" name="tel" placeholder="Teléfono">
 
             </div>
 
             <div class="col-md-6">
-              <label>Móvil</label>
-              <input type="text" class="form-control form-control-sm" name="movil" placeholder="Móvil">
+              <label class="d-label">Móvil</label>
+              <input type="text" class="form-control form-control-sm" name="movil" placeholder="Móvil"><br>
             </div>
 
             <div class="col-md-6">
-              <label>Usuario</label>
+              <label class="d-label">Usuario</label>
               <input type="text" class="form-control form-control-sm" name="user" id="user" placeholder="Usuario">
               <h3 id="comprobar"></h3>
 
             </div>
 
             <div class="col-md-6">
-              <label>Contraseña</label>
-              <input class="form-control form-control-sm" type="password" name="pass" id="pass1">
+              <label class="d-label">Contraseña</label>
+              <input class="form-control form-control-sm" type="password" name="pass" id="pass1"><br>
             </div>
 
             <div class="col-md-6">
 
-              <label for="cat">Confirmar contraseña:</label>
+              <label class="d-label" for="cat">Confirmar contraseña:</label>
 
               <input class="form-control form-control-sm" type="password" id="pass2">
 
@@ -71,7 +74,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
             <div class="col-md-6">
-              <label>Tipo de usuario</label>
+              <label class="d-label">Tipo de usuario</label>
               <select class="form-control form-control-sm" name="cmbrol">
                 <option value="">Seleccione...</option>
                 <?php
@@ -88,13 +91,13 @@ require_once ROOT_PATH .  'config/conexiones.php';
                 <?php }
                 }
                 ?>
-              </select>
+              </select><br>
 
             </div>
 
             <div class="col-md-6">
 
-              <label for="cat">Estado:</label>
+              <label class="d-label" for="cat">Estado:</label>
               <select class="form-control form-control-sm" name="cmbestado">
                 <option value="">Seleccione...</option>
                 <?php
@@ -117,7 +120,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
             <div class="col-md-6">
 
-              <label for="cat">Foto de perfil:</label>
+              <label class="d-label" for="cat">Foto de perfil:</label>
 
               <input class="form-control form-control-sm" type="file" name="archivo">
               <br>
@@ -143,11 +146,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 2 -->
 <div class="modal fade" id="myModalActualizarUsuario" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Actualizar usuario</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -155,53 +158,53 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormActualizarUsuario">
           <div class="row">
             <div class="col-md-6">
-              <label>Nombre</label>
+              <label class="d-label">Nombre</label>
               <input type="text" class="form-control form-control-sm" name="nombre" id="nombre" placeholder="Nombre">
             </div>
 
             <div class="col-md-6">
-              <label>Apellidos</label>
-              <input type="text" class="form-control form-control-sm" name="apellidos" id="apellidos" placeholder="Apellidos">
+              <label class="d-label">Apellidos</label>
+              <input type="text" class="form-control form-control-sm" name="apellidos" id="apellidos" placeholder="Apellidos"><br>
             </div>
 
             <div class="col-md-6">
-              <label>Dirección</label>
+              <label class="d-label">Dirección</label>
               <input type="text" class="form-control form-control-sm" name="dir" id="dir" placeholder="Dirección">
             </div>
 
             <div class="col-md-6">
-              <label>Correo</label>
-              <input type="text" class="form-control form-control-sm" name="correo" id="correo" placeholder="Correo">
+              <label class="d-label">Correo</label>
+              <input type="text" class="form-control form-control-sm" name="correo" id="correo" placeholder="Correo"><br>
             </div>
 
             <div class="col-md-6">
-              <label>Teléfono</label>
+              <label class="d-label">Teléfono</label>
 
               <input type="text" class="form-control form-control-sm" name="tel" id="tel" placeholder="Teléfono">
 
             </div>
 
             <div class="col-md-6">
-              <label>Móvil</label>
-              <input type="text" class="form-control form-control-sm" name="movil" id="movil" placeholder="Móvil">
+              <label class="d-label">Móvil</label>
+              <input type="text" class="form-control form-control-sm" name="movil" id="movil" placeholder="Móvil"><br>
             </div>
 
             <div class="col-md-6">
-              <label>Usuario</label>
+              <label class="d-label">Usuario</label>
               <input type="text" class="form-control form-control-sm" name="user" id="user2" placeholder="Usuario">
               <h3 id="comprobar"></h3>
 
             </div>
 
             <div class="col-md-6">
-              <label>Contraseña</label>
+              <label class="d-label">Contraseña</label>
               <input class="form-control form-control-sm" type="hidden" name="pass" id="pass0">
-              <input class="form-control form-control-sm" type="password" name="pass11" id="pass11">
+              <input class="form-control form-control-sm" type="password" name="pass11" id="pass11"><br>
             </div>
 
             <div class="col-md-6">
 
-              <label for="cat">Confirmar contraseña:</label>
+              <label class="d-label" for="cat">Confirmar contraseña:</label>
 
               <input class="form-control form-control-sm" type="password" id="pass12">
 
@@ -211,7 +214,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
             <div class="col-md-6">
-              <label>Tipo de usuario</label>
+              <label class="d-label">Tipo de usuario</label>
               <select class="form-control form-control-sm" name="cmbrol" id="cmbrol">
                 <option value="">Seleccione...</option>
                 <?php
@@ -228,13 +231,13 @@ require_once ROOT_PATH .  'config/conexiones.php';
                 <?php }
                 }
                 ?>
-              </select>
+              </select><br>
 
             </div>
 
             <div class="col-md-6">
 
-              <label for="cat">Estado:</label>
+              <label class="d-label" for="cat">Estado:</label>
               <select class="form-control form-control-sm" name="cmbestado" id="cmbestado">
                 <option value="">Seleccione...</option>
                 <?php
@@ -256,12 +259,12 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
             <div class="col-md-6">
 
-              <label for="cat">Foto de perfil actual:</label>
+              <label class="d-label" for="cat">Foto de perfil actual:</label>
               <img src="" id="img" width="150" ; height="150" ;>
             </div>
             <div class="col-md-6">
 
-              <label for="cat">Foto de perfil:</label>
+              <label class="d-label" for="cat">Foto de perfil:</label>
 
               <input class="form-control form-control-sm" type="file" name="archivo">
               <img src="" name="imagen_actual" id="imagen_actual">
@@ -287,35 +290,35 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarCurso" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
-        <p class="modal-title" style="color: #fff;">Agregar curso</p>
+      <div class="modal-header m-header">
+        <p class="modal-title">Agregar curso</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <form id="fupFormAgregarCurso">
           <div class="row">
             <div class="col-md-6">
-              <label>Curso</label>
+              <label class="d-label">Curso</label>
               <input type="text" class="form-control form-control-sm" name="nombre" placeholder="Nombre">
             </div>
 
             <div class="col-md-6">
-              <label>Descripción</label>
-              <textarea class="form-control form-control-sm" name="descripcion" cols="5"></textarea>
+              <label class="d-label">Descripción</label>
+              <textarea class="form-control form-control-sm" name="descripcion" cols="5"></textarea><br>
 
             </div>
 
             <div class="col-md-6">
-              <label>Duración</label>
+              <label class="d-label">Duración</label>
               <input type="text" class="form-control form-control-sm" name="duracion" placeholder="Duración">
             </div>
 
             <div class="col-md-6">
-              <label>Profesor asignado</label>
+              <label class="d-label">Profesor asignado</label>
               <select class="form-control form-control-sm" name="cmbusuario">
                 <option value="">Seleccione...</option>
                 <?php
@@ -353,11 +356,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 </div>
 <!-- Modal 2 -->
 <div class="modal fade" id="myModalActualizarCurso" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Actualizar curso</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -365,23 +368,23 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormActualizarCurso">
           <div class="row">
             <div class="col-md-6">
-              <label>Curso</label>
+              <label class="d-label">Curso</label>
               <input type="text" class="form-control form-control-sm" name="nombre" id="nombre_curso" placeholder="Nombre">
             </div>
 
             <div class="col-md-6">
-              <label>Descripción</label>
-              <textarea class="form-control form-control-sm" name="descripcion" id="descripcion" cols="5"></textarea>
+              <label class="d-label">Descripción</label>
+              <textarea class="form-control form-control-sm" name="descripcion" id="descripcion" cols="5"></textarea><br>
 
             </div>
 
             <div class="col-md-6">
-              <label>Duración</label>
+              <label class="d-label">Duración</label>
               <input type="text" class="form-control form-control-sm" name="duracion" id="duracion" placeholder="Duración">
             </div>
 
             <div class="col-md-6">
-              <label>Profesor asignado</label>
+              <label class="d-label">Profesor asignado</label>
               <select class="form-control form-control-sm" name="asignado" id="asignado">
                 <option value="">Seleccione...</option>
                 <?php
@@ -400,7 +403,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
                 <?php }
                 }
                 ?>
-              </select>
+              </select><br>
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_curso">
               <br>
             </div>
@@ -422,19 +425,19 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarTipo" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
-        <p class="modal-title" style="color: #fff;">Agregar tipo de trabajo</p>
+      <div class="modal-header m-header">
+        <p class="modal-title">Agregar tipo de trabajo</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <form id="fupFormAgregarTipo">
           <div class="row">
             <div class="col-md-6">
-              <label>Tipo de trabajo</label>
+              <label class="d-label">Tipo de trabajo</label>
               <input type="text" class="form-control form-control-sm" name="tipo" placeholder="Tipo de trabajo">
               <br>
             </div>
@@ -457,19 +460,19 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 2 -->
 <div class="modal fade" id="myModalActualizarTipo" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
-        <p class="modal-title" style="color: #fff;">Actualizar tipo de trabajo</p>
+      <div class="modal-header m-header">
+        <p class="modal-title">Actualizar tipo de trabajo</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <form id="fupFormActualizarTipo">
           <div class="row">
             <div class="col-md-6">
-              <label>Tipo de trabajo</label>
+              <label class="d-label">Tipo de trabajo</label>
               <input type="text" class="form-control form-control-sm" name="tipo" id="tipo">
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_tipo_trabajo">
               <br>
@@ -494,19 +497,19 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarMateria" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
-        <p class="modal-title" style="color: #fff;">Agregar materia</p>
+      <div class="modal-header m-header" style="background-color: #337AFF;">
+        <p class="modal-title">Agregar materia</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <form id="fupFormAgregarMateria">
           <div class="row">
             <div class="col-md-6">
-              <label>Materia</label>
+              <label class="d-label">Materia</label><br>
               <input type="text" class="form-control form-control-sm" name="materia" placeholder="Materia">
               <br>
             </div>
@@ -530,11 +533,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 2 -->
 <div class="modal fade" id="myModalActualizarMateria" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header" style="background-color: #337AFF;">
         <p class="modal-title" style="color: #fff;">Actualizar materia</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -542,7 +545,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormActualizarMateria">
           <div class="row">
             <div class="col-md-6">
-              <label>Materia</label>
+              <label class="d-label">Materia</label>
               <input type="text" class="form-control form-control-sm" name="materia" id="materia">
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_materia">
               <br>
@@ -567,11 +570,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarNivel" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Agregar nivel educativo</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -579,7 +582,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormAgregarNivel">
           <div class="row">
             <div class="col-md-6">
-              <label>Nivel educativo</label>
+              <label class="d-label">Nivel educativo</label>
               <input type="text" class="form-control form-control-sm" name="nivel" placeholder="Nivel educativo">
               <br>
             </div>
@@ -602,11 +605,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 2 -->
 <div class="modal fade" id="myModalActualizarNivel" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Actualizar nivel educativo</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -614,7 +617,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormActualizarNivel">
           <div class="row">
             <div class="col-md-6">
-              <label>Nivel educativo</label>
+              <label class="d-label">Nivel educativo</label>
               <input type="text" class="form-control form-control-sm" name="nivel" id="nivel">
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_nivel">
               <br>
@@ -639,11 +642,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalActualizarLogotipo" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Actualizar logotipo</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -651,7 +654,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormActualizarLogotipo">
           <div class="row">
             <div class="col-md-6">
-              <label>Nueva foto</label>
+              <label class="d-label">Nueva foto</label>
               <input type="file" class="form-control form-control-sm" name="archivo">
               <input type="hidden" class="form-control form-control-sm" name="imagen_actual" id="imagen_actual">
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_logotipo">
@@ -677,11 +680,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarSolicitud" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Agregar solicitud</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -689,12 +692,12 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormAgregarSolicitud">
           <div class="row">
             <div class="col-md-6">
-              <label>Título</label>
+              <label class="d-label">Título</label>
               <input type="text" class="form-control form-control-sm" name="titulo" placeholder="Título">
             </div>
 
             <div class="col-md-6">
-              <label>Nivel educativo</label>
+              <label class="d-label">Nivel educativo</label>
               <select class="form-control form-control-sm" name="cmbnivel">
                 <option value="">Seleccione...</option>
                 <?php
@@ -712,11 +715,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
                 <?php }
                 }
                 ?>
-              </select>
+              </select><br>
             </div>
 
             <div class="col-md-6">
-              <label>Tipo de trabajo</label>
+              <label class="d-label">Tipo de trabajo</label>
               <select class="form-control form-control-sm" name="cmbtipo">
                 <option value="">Seleccione...</option>
                 <?php
@@ -738,7 +741,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
             <div class="col-md-6">
-              <label>Materia relacionada</label>
+              <label class="d-label">Materia relacionada</label>
               <select class="form-control form-control-sm" name="cmbmateria">
                 <option value="">Seleccione...</option>
                 <?php
@@ -756,26 +759,26 @@ require_once ROOT_PATH .  'config/conexiones.php';
                 <?php }
                 }
                 ?>
-              </select>
+              </select><br>
             </div>
 
             <div class="col-md-6">
-              <label>Fecha límite</label>
+              <label class="d-label">Fecha límite</label>
 
               <input type="text" class="form-control form-control-sm" name="fecha" id="fecha">
 
             </div>
 
             <div class="col-md-6">
-              <label>Descripción</label>
+              <label class="d-label">Descripción</label>
               <textarea class="form-control form-control-sm" name="descripcion" cols="8">
   Descripción
-</textarea>
+</textarea><br>
               <input type="hidden" class="form-control form-control-sm" name="id_estudiante" value="<?= $usuario_id; ?>">
             </div>
 
             <div class="col-md-6">
-              <label>Documentos</label>
+              <label class="d-label">Documentos</label>
               <div class="field_wrapper">
                 <div>
 
@@ -804,11 +807,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 2 -->
 <div class="modal fade" id="myModalActualizarSolicitud" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Actualizar solicitud</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -827,14 +830,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
     </div>
   </div>
             <div class="col-md-6">
-              <label>Título</label>
+              <label class="d-label">Título</label>
               <input type="text" class="form-control form-control-sm" name="titulo" id="titulo" <?php $resultado = $rol == "2" ? "readonly" : ""; ?> <?= $resultado; ?>>
             </div>
             <?php 
             if ($rol != "3") 
               { ?>
               <div class="col-md-6">
-              <label>Asesor</label>
+              <label class="d-label">Asesor</label>
               <select class="form-control form-control-sm" name="cmbasesor" id="cmbprof2">
                 <option value="">Seleccione...</option>
                 <?php
@@ -852,14 +855,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
                 <?php }
                 }
                 ?>
-              </select>
+              </select><br>
             </div>
             <?php }
             ?>
             
 
             <div class="col-md-6">
-              <label>Nivel educativo</label>
+              <label class="d-label">Nivel educativo</label>
               <select class="form-control form-control-sm" name="cmbnivel" id="cmbnivel" <?php $resultado = $rol == "2" ? "disabled" : ""; ?> <?= $resultado; ?>>
                 <option value="">Seleccione...</option>
                 <?php
@@ -881,7 +884,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
             <div class="col-md-6">
-              <label>Tipo de trabajo</label>
+              <label class="d-label">Tipo de trabajo</label>
               <select class="form-control form-control-sm" name="cmbtipo" id="cmbtipo" <?php $resultado = $rol == "2" ? "disabled" : ""; ?> <?= $resultado; ?>>
                 <option value="">Seleccione...</option>
                 <?php
@@ -899,11 +902,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
                 <?php }
                 }
                 ?>
-              </select>
+              </select><br>
             </div>
 
             <div class="col-md-6">
-              <label>Materia relacionada</label>
+              <label class="d-label">Materia relacionada</label>
               <select class="form-control form-control-sm" name="cmbmateria" id="cmbmateria" <?php $resultado = $rol == "2" ? "disabled" : ""; ?> <?= $resultado; ?>>
                 <option value="">Seleccione...</option>
                 <?php
@@ -925,14 +928,14 @@ require_once ROOT_PATH .  'config/conexiones.php';
             </div>
 
             <div class="col-md-6">
-              <label>Fecha límite</label>
+              <label class="d-label">Fecha límite</label>
 
-              <input type="text" class="form-control form-control-sm" name="fecha" id="fecha_limite" <?php $resultado = $rol == "2" ? "readonly" : ""; ?> <?= $resultado; ?>>
+              <input type="text" class="form-control form-control-sm" name="fecha" id="fecha_limite" <?php $resultado = $rol == "2" ? "readonly" : ""; ?> <?= $resultado; ?>><br>
 
             </div>
 
             <div class="col-md-6">
-              <label>Descripción</label>
+              <label class="d-label">Descripción</label>
               <textarea class="form-control form-control-sm" name="descripcion" id="descripcion_solicitud" cols="8" <?php $resultado = $rol == "2" ? "readonly" : ""; ?> <?= $resultado; ?>>
   Descripción
 </textarea><br>
@@ -978,11 +981,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 <!-- Modal 2 -->
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalAgregarArchivo" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Agregar archivo</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -990,7 +993,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormAgregarArchivo">
           <div class="row">
             <div class="col-md-6">
-              <label>Archivo</label>
+              <label class="d-label">Archivo</label>
               <input type="file" class="form-control form-control-sm pdf" name="archivo">
 
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_archivo_solicitud">
@@ -1014,11 +1017,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 <!-- Modal 2 -->
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalActualizarArchivo" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Actualizar archivo</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -1026,7 +1029,7 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormActualizarArchivo">
           <div class="row">
             <div class="col-md-6">
-              <label>Archivo</label>
+              <label class="d-label">Archivo</label>
               <input type="file" class="form-control form-control-sm pdf" name="archivo"><br>
               <input type="hidden" class="form-control form-control-sm" name="archivo_actual" id="archivo_actual_solicitud">
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_sol">
@@ -1050,11 +1053,11 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 1 -->
 <div class="modal fade" id="myModalEnviarCotizacion" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog">
+  <div class="modal-dialog m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Enviar cotización</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -1062,13 +1065,13 @@ require_once ROOT_PATH .  'config/conexiones.php';
         <form id="fupFormEnviarCotizacion">
           <div class="row">
             <div class="col-md-6">
-              <label>Tiempo de entrega</label>
+              <label class="d-label">Tiempo de entrega</label>
               <input type="text" class="form-control form-control-sm" name="tiempo_entrega">
                 
             </div>
             <div class="col-md-6">
-              <label>Costo total</label>
-              <input type="text" class="form-control form-control-sm" name="costo_total" onkeypress="return validateFloatKeyPress(this,event);">
+              <label class="d-label">Costo total</label>
+              <input type="text" class="form-control form-control-sm" name="costo_total" onkeypress="return validateFloatKeyPress(this,event);"><br>
                 
             </div>
             <div class="col-md-6">
@@ -1099,67 +1102,95 @@ require_once ROOT_PATH .  'config/conexiones.php';
 
 <!-- Modal 2 -->
 <div class="modal fade" id="myModalActualizarCotizacion" role="dialog" style="overflow-y: scroll;">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg m-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #337AFF;">
+      <div class="modal-header m-header">
         <p class="modal-title" style="color: #fff;">Detalles cotización</p>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <form id="fupFormActualizarCotizacion">
+          <h2 id="titulo_cotizacion"></h2><br>
           <div class="row">
-            <div class="col-md-12">
-             <h2 id="titulo_cotizacion"></h2><br>
-             <?php 
+          <?php 
              if ($rol == "3") 
               { ?>
-               <button type="button" class="btn btn-success aceptar_propuesta">Aceptar propuesta</button>
-               <button type="button" class="btn btn-danger rechazar_propuesta">Rechazar propuesta</button>
+
+                <div class="col-md-4">
+                <button type="button" class="btn btn-success aceptar_propuesta">Aceptar propuesta</button>   
+                </div>
+               <div class="col-md-4">
+               <button type="button" class="btn btn-danger rechazar_propuesta">Rechazar propuesta</button>  
+               </div>
+               
              <?php }
 
              ?>
-             <br>
-             <button type="button" class="btn btn-success enviar_mensaje">Enviar mensaje</button>
-             
-                
-             
-
-                         </div>
+          
+             <div class="col-md-4">
+               <button type="button" class="btn btn-success enviar_mensaje">Enviar mensaje</button>
+             </div>
+             <div class="col-md-4">
+               <button type="button" class="btn btn-success generar_avance">Generar avance</button>
+             </div>
+           </div><br>
+        <div class="row">
+        
             <div class="col-md-6">
-              <label>Tiempo de entrega</label>
+              <label class="d-label">Tiempo de entrega</label>
+
               <input type="text" class="form-control form-control-sm" name="tiempo_entrega" id="tiempo_entrega2" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
                 
             </div>
             <div class="col-md-6">
-              <label>Costo total</label>
-              <input type="text" class="form-control form-control-sm" name="costo_total" id="costo_total2" onkeypress="return validateFloatKeyPress(this,event);" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
+              <label class="d-label">Costo total</label>
+              <input type="text" class="form-control form-control-sm" name="costo_total" id="costo_total2" onkeypress="return validateFloatKeyPress(this,event);" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>><br>
                 
             </div>
             <div class="col-md-12">
-              <label>Detalles de la cotización</label>
+              <label class="d-label">Detalles de la cotización</label>
               <textarea class="form-control form-control-sm" name="detalles" id="detalles2" cols="8" <?php $resultado = ($rol == "3") ? "readonly" : ""; ?> <?= $resultado; ?>>
               </textarea>
             </div>
 
             <div class="col-md-12">
-              <label>Detalles de parte del estudiante</label>
+              <label class="d-label">Detalles de parte del estudiante</label>
               <textarea class="form-control form-control-sm" name="detalles_estudiante" id="detalles_estudiante" cols="8" <?php $resultado = ($rol == "2") ? "readonly" : ""; ?> <?= $resultado; ?>>
                 
-              </textarea>
+              </textarea><br>
               <input type="hidden" class="form-control form-control-sm" name="titulo_cotizacion" id="titulo_cotizacion2">
               <input type="hidden" class="form-control form-control-sm" name="creador_id" id="creador_id">
               <input type="hidden" class="form-control form-control-sm" name="usuario_id" id="usuario_id_cotizacion">
               <input type="hidden" class="form-control form-control-sm" name="propuesta_id" id="propuesta_id_cotizacion">
               <input type="hidden" class="form-control form-control-sm" name="estado_cotizacion" id="estado_cotizacion">
               <input type="hidden" class="form-control form-control-sm" name="id" id="id_cotizacion_solicitud2"><br>
+              <input type="hidden" class="form-control form-control-sm" name="archivos_avance" id="archivos_avance">
             </div>
             
           </div> <!--FINAL ROW-->
-          
-          <div class="statusMsgactualizarcotizacion"></div>
         
+          <div class="statusMsgactualizarcotizacion"></div>
+        <div class="col-md-12">
+          <br>
+          <h3>Documentos</h3>
+          
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Archivo</th>
+                  <th>Detalles</th>
+                </tr>
+              </thead>
+              <tbody id="relleno_avance">
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
 
       </div>
       <div class="modal-footer">
@@ -1172,4 +1203,84 @@ require_once ROOT_PATH .  'config/conexiones.php';
 </div>
 
 <!-- Modal 1 -->
+
+<!-- Modal 1 -->
+<div class="modal fade" id="myModalAgregarAvance" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog m-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header m-header">
+        <p class="modal-title">Agregar avance</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="fupFormAgregarAvance">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="d-label">Archivo</label>
+              <input type="file" class="form-control form-control-sm solo-pdf" name="archivo">
+              
+            </div>
+
+            <div class="col-md-6">
+              <label class="d-label">Grado de avance</label>
+              <select class="form-control form-control-sm" name="cmbgrado">
+                <option value="">Seleccione...</option>
+                <option value="Avance">Avance</option>
+                <option value="Proyecto terminado">Proyecto terminado</option>
+              </select>
+              <input type="hidden" class="form-control form-control-sm" name="id_propuesta" id="id_propuesta_avance">
+              <input type="hidden" class="form-control form-control-sm" name="id_profesor" id="id_profesor_avance">
+              <input type="hidden" class="form-control form-control-sm" name="id_estudiante" id="id_estudiante_avance">
+            </div>
+
+          </div> <!--FINAL ROW-->
+          
+          <div class="statusMsgagregaravance"></div>
+        
+
+      </div>
+      <div class="modal-footer">
+         <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregaravance" value="Guardar" />
+         </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal 2 -->
+
+<!-- Modal 1 -->
+<div class="modal fade" id="myModalMostrarAvance" role="dialog" style="overflow-y: scroll;">
+  <div class="modal-dialog m-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header m-header">
+        <p class="modal-title">Avance</p>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="d-label">Archivo</label>
+              <iframe id="archivo_muestra" width="100%" height="auto"></iframe>
+              
+            </div>
+
+          </div> <!--FINAL ROW-->
+          
+          
+      </div>
+      <div class="modal-footer">
+        <!-- <input type="submit" name="submit" class="btn btn-primary btn-rounded submitBtnagregaravance" value="Guardar" />-->
+         </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal 2 -->
 <!-- modales -->
